@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * 在庫センター情報画面のサービスクラス
  *
- * @author Okuma
+ * @author your name
  * 
  */
 @Service

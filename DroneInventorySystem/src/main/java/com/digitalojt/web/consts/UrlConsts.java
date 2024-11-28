@@ -3,7 +3,7 @@ package com.digitalojt.web.consts;
 /**
  * URL定数クラス
  *
- * @author Okuma
+ * @author your name
  * 
  */
 public class UrlConsts {

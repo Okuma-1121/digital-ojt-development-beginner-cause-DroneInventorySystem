@@ -3,7 +3,7 @@ package com.digitalojt.web.consts;
 /**
  * 不正文字を管理するEnumクラス
  * 
- * @author Okuma
+ * @author your name
  */
 public enum InvalidCharacter {
 

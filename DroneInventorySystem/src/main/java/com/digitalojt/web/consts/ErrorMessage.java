@@ -3,7 +3,7 @@ package com.digitalojt.web.consts;
 /**
  * エラーメッセージ定数クラス
  * 
- * @author Okuma
+ * @author your name
  *
  */
 public class ErrorMessage {

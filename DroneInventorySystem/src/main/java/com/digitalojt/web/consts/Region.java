@@ -3,7 +3,7 @@ package com.digitalojt.web.consts;
 /**
  * 都道府県 Enumクラス
  * 
- * @author Okuma
+ * @author your name
  */
 public enum Region {
 

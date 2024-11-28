@@ -8,7 +8,7 @@ import com.digitalojt.web.consts.UrlConsts;
 /**
  * 在庫一覧画面コントローラークラス
  * 
- * @author Okuma
+ * @author your name
  *
  */
 @Controller

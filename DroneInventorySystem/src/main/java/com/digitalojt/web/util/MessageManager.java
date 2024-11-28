@@ -7,7 +7,7 @@ import org.springframework.context.MessageSource;
 /**
  * メッセージ管理 共通クラス
  * 
- * @author Okuma
+ * @author your name
  */
 public class MessageManager {
 

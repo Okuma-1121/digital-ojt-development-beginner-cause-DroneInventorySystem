@@ -13,7 +13,7 @@ import jakarta.validation.Payload;
 /**
  * 在庫センター情報画面のバリデーションチェック インターフェース
  * 
- * @author Okuma
+ * @author your name
  */
 @Constraint(validatedBy = CenterInfoFormValidatorImpl.class)
 @Target({ ElementType.TYPE })

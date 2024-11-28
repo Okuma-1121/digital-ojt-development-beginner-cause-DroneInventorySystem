@@ -3,7 +3,7 @@ package com.digitalojt.web.controller;
 /**
  * 抽象コントローラー
  *
- * @author your name
+ * @author Okuma
  *
  */
 public class AbstractController {

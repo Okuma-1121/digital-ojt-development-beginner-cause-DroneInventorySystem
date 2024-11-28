@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * ユーザー情報生成
  *
- * @author your name
+ * @author Okuma
  * 
  */
 @Component

@@ -10,7 +10,7 @@
   <body>
     <div class="card shadow mb-4">
       <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Hello World</h6>
+        <h6 class="m-0 font-weight-bold text-primary">分類情報管理</h6>
       </div>
 
       <div class="card-body">
@@ -18,9 +18,13 @@
           <table
             class="table table-bordered"
             id="dataTable"
-            width="100%"
-            cellspacing="0"
+            style="width:70%;text-align: center;margin: auto;"
           >
+          	<tbody>
+              <tr th:each="item : ${categoryConsts}">
+				<td> [[${item.category}]] </td>
+              </tr>
+             </tbody>
           </table>
         </div>
       </div>

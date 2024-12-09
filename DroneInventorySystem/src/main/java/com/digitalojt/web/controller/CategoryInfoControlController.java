@@ -3,12 +3,20 @@ package com.digitalojt.web.controller;
 import java.util.Arrays;
 import java.util.List;
 
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.digitalojt.web.consts.CategoryConsts;
 import com.digitalojt.web.consts.UrlConsts;
+import com.digitalojt.web.form.CategoryInfoControlForm;
+import com.digitalojt.web.util.MessageManager;
+
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 /**
  * 分類情報管理画面のコントローラークラス
@@ -17,7 +25,11 @@ import com.digitalojt.web.consts.UrlConsts;
  * 
  */
 @Controller
+@RequiredArgsConstructor
 public class CategoryInfoControlController{
+	
+	/** メッセージソース */
+	private final MessageSource messageSource;
 	
 	/**
 	 * 初期表示
@@ -30,6 +42,42 @@ public class CategoryInfoControlController{
 		
 		// 分類 Enumをリストに変換
 		List<CategoryConsts> categoryConsts = Arrays.asList(CategoryConsts.values());
+
+		// 分類一覧情報をセット
+		model.addAttribute("categoryConsts", categoryConsts);
+
+		return "admin/categoryInfoControl/index";
+	}
+	
+	/**
+	 * 検索結果表示
+	 * 
+	 * @param model
+	 * @param form
+	 * @return
+	 */
+	@PostMapping(UrlConsts.CATEGORY_INFO_CONTROL_SEARCH)
+	public String search(Model model, @Valid CategoryInfoControlForm form, BindingResult bindingResult) {
+
+		// Valid項目チェック
+		if (bindingResult.hasErrors()) {
+			
+			// エラーメッセージをプロパティファイルから取得
+			String errorMsg = MessageManager.getMessage(messageSource, bindingResult.getGlobalError().getDefaultMessage());
+			model.addAttribute("errorMsg", errorMsg);
+
+			// 分類 Enumをリストに変換
+			List<CategoryConsts> categoryConsts = Arrays.asList(CategoryConsts.values());
+
+			// 分類一覧情報をセット
+			model.addAttribute("categoryConsts", categoryConsts);
+
+			return "admin/categoryInfoControl/index";
+		}
+		
+
+		// 分類情報管理画面に表示するデータを取得
+		List<CategoryConsts> categoryConsts = form.getCategoryResearchResult(form.getCategory());
 
 		// 分類一覧情報をセット
 		model.addAttribute("categoryConsts", categoryConsts);

@@ -17,12 +17,12 @@ import lombok.Data;
 @Data
 @CategoryInfoControlFormValidator
 public class CategoryInfoControlForm {
-	
+
 	/**
 	 * 分類名
 	 */
 	private String category;
-	
+
 	/**
 	 * 引数に合致する分類情報を取得
 	 * 
@@ -30,14 +30,14 @@ public class CategoryInfoControlForm {
 	 * @return
 	 */
 	public List<CategoryConsts> getCategoryResearchResult(String category) {
-		
+
 		List<CategoryConsts> categoryResearchResult = new ArrayList<>();
 		for (CategoryConsts CategoryConsts : CategoryConsts.values()) {
-            if (CategoryConsts.getCategory().equals(category)) {
-            	categoryResearchResult.add(CategoryConsts);
-            }
+			if (CategoryConsts.getCategory().equals(category)) {
+				categoryResearchResult.add(CategoryConsts);
+			}
 		}
 		return categoryResearchResult;
 	}
-	
+
 }

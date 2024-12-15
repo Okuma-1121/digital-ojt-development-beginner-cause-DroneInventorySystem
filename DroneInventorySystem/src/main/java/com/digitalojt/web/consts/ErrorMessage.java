@@ -22,4 +22,11 @@ public class ErrorMessage {
 
 	// 文字超過に関するエラーメッセージ
 	public static final String CENTER_NAME_LENGTH_ERROR_MESSAGE = "centerName.length.wrongInput";
+
+	// 文字超過に関するエラーメッセージ
+	public static final String CATEGORY_LENGTH_ERROR_MESSAGE = "category.length.wrongInput";
+
+	// 分類名が空の場合のエラーメッセージ
+	public static final String CATEGORY_FIELDS_EMPTY_ERROR_MESSAGE = "category.empty";
+
 }

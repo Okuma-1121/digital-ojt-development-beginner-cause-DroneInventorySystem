@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.digitalojt.web.consts.CategoryConsts;
 import com.digitalojt.web.consts.UrlConsts;
+import com.digitalojt.web.entity.CategoryInfo;
 import com.digitalojt.web.form.CategoryInfoControlForm;
+import com.digitalojt.web.service.CategoryInfoService;
 import com.digitalojt.web.util.MessageManager;
 
 import jakarta.validation.Valid;
@@ -26,11 +28,14 @@ import lombok.RequiredArgsConstructor;
  */
 @Controller
 @RequiredArgsConstructor
-public class CategoryInfoControlController{
-	
+public class CategoryInfoControlController {
+
+	/** 分類情報 サービス */
+	private final CategoryInfoService categoryInfoService;
+
 	/** メッセージソース */
 	private final MessageSource messageSource;
-	
+
 	/**
 	 * 初期表示
 	 * 
@@ -39,16 +44,23 @@ public class CategoryInfoControlController{
 	 */
 	@GetMapping(UrlConsts.CATEGORY_INFO_CONTROL)
 	public String index(Model model) {
-		
-		// 分類 Enumをリストに変換
-		List<CategoryConsts> categoryConsts = Arrays.asList(CategoryConsts.values());
+
+		/*		// 分類名取得を定数クラス→DB取得に変更のためコメント化
+				// 分類 Enumをリストに変換
+				List<CategoryConsts> categoryConsts = Arrays.asList(CategoryConsts.values());
+				// 分類一覧情報をセット
+				model.addAttribute("categoryConsts", categoryConsts);
+		*/
+
+		// 分類情報画面に表示するデータを取得
+		List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();
 
 		// 分類一覧情報をセット
-		model.addAttribute("categoryConsts", categoryConsts);
+		model.addAttribute("categoryInfoList", categoryInfoList);
 
 		return "admin/categoryInfoControl/index";
 	}
-	
+
 	/**
 	 * 検索結果表示
 	 * 
@@ -61,9 +73,10 @@ public class CategoryInfoControlController{
 
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
-			
+
 			// エラーメッセージをプロパティファイルから取得
-			String errorMsg = MessageManager.getMessage(messageSource, bindingResult.getGlobalError().getDefaultMessage());
+			String errorMsg = MessageManager.getMessage(messageSource,
+					bindingResult.getGlobalError().getDefaultMessage());
 			model.addAttribute("errorMsg", errorMsg);
 
 			// 分類 Enumをリストに変換
@@ -74,7 +87,6 @@ public class CategoryInfoControlController{
 
 			return "admin/categoryInfoControl/index";
 		}
-		
 
 		// 分類情報管理画面に表示するデータを取得
 		List<CategoryConsts> categoryConsts = form.getCategoryResearchResult(form.getCategory());
@@ -84,6 +96,5 @@ public class CategoryInfoControlController{
 
 		return "admin/categoryInfoControl/index";
 	}
-	
-	
+
 }

@@ -52,12 +52,18 @@ public class CategoryInfoControlController {
 				model.addAttribute("categoryConsts", categoryConsts);
 		*/
 
-		// 分類情報画面に表示するデータを取得
-		List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();
-
-		// 分類一覧情報をセット
-		model.addAttribute("categoryInfoList", categoryInfoList);
-
+		try {
+			// 分類情報画面に表示するデータを取得
+			List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();
+			// 分類一覧情報をセット
+			model.addAttribute("categoryInfoList", categoryInfoList);
+		}
+		catch(RuntimeException e){
+            // エラーメッセージをセット
+         	String errorMsg = "分類情報を取得できませんでした。";
+         	model.addAttribute("errorMsg", errorMsg);
+		}
+		
 		return "admin/categoryInfoControl/index";
 	}
 

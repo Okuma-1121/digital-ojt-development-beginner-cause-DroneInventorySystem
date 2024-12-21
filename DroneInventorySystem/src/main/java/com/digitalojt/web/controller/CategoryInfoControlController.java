@@ -57,13 +57,12 @@ public class CategoryInfoControlController {
 			List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();
 			// 分類一覧情報をセット
 			model.addAttribute("categoryInfoList", categoryInfoList);
+		} catch (RuntimeException e) {
+			// エラーメッセージをセット
+			String errorMsg = "分類情報を取得できませんでした。";
+			model.addAttribute("errorMsg", errorMsg);
 		}
-		catch(RuntimeException e){
-            // エラーメッセージをセット
-         	String errorMsg = "分類情報を取得できませんでした。";
-         	model.addAttribute("errorMsg", errorMsg);
-		}
-		
+
 		return "admin/categoryInfoControl/index";
 	}
 

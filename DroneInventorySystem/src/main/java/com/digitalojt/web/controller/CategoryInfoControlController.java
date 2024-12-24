@@ -1,5 +1,6 @@
 package com.digitalojt.web.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.MessageSource;
@@ -9,13 +10,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.digitalojt.web.consts.CategoryConsts;
 import com.digitalojt.web.consts.UrlConsts;
 import com.digitalojt.web.entity.CategoryInfo;
 import com.digitalojt.web.form.CategoryInfoControlForm;
 import com.digitalojt.web.service.CategoryInfoService;
 import com.digitalojt.web.util.MessageManager;
 
-import jakarta.persistence.PersistenceException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -57,9 +58,9 @@ public class CategoryInfoControlController {
 			// 分類一覧情報をセット
 			model.addAttribute("categoryInfoList", categoryInfoList);
 		} catch (RuntimeException e) {
-			// DB情報取得エラー時のメッセージをセット
-			String dbErrorMsg = "分類情報を取得できませんでした。";
-			model.addAttribute("dbErrorMsg", dbErrorMsg);
+			// エラーメッセージをセット
+			String errorMsg = "分類情報を取得できませんでした。";
+			model.addAttribute("errorMsg", errorMsg);
 		}
 
 		return "admin/categoryInfoControl/index";
@@ -83,49 +84,20 @@ public class CategoryInfoControlController {
 					bindingResult.getGlobalError().getDefaultMessage());
 			model.addAttribute("errorMsg", errorMsg);
 
-			/*			// 分類名取得を定数クラス→DB取得に変更のためコメント化
-						// 分類 Enumをリストに変換
-						List<CategoryConsts> categoryConsts = Arrays.asList(CategoryConsts.values());
-			
-						// 分類一覧情報をセット
-						model.addAttribute("categoryConsts", categoryConsts);
-			*/
+			// 分類 Enumをリストに変換
+			List<CategoryConsts> categoryConsts = Arrays.asList(CategoryConsts.values());
 
-			try {
-				// 分類情報画面に表示するデータを取得
-				List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();
-				// 分類一覧情報をセット
-				model.addAttribute("categoryInfoList", categoryInfoList);
-			} catch (RuntimeException e) {
-				// DB情報取得エラー時のメッセージをセット
-				String dbErrorMsg = "分類情報を取得できませんでした。";
-				model.addAttribute("dbErrorMsg", dbErrorMsg);
-			}
+			// 分類一覧情報をセット
+			model.addAttribute("categoryConsts", categoryConsts);
 
 			return "admin/categoryInfoControl/index";
 		}
 
-		/*		// 分類情報管理画面に表示するデータを取得
-				List<CategoryConsts> categoryConsts = form.getCategoryResearchResult(form.getCategory());
-		
-				// 分類一覧情報をセット
-				model.addAttribute("categoryConsts", categoryConsts);
-		*/
+		// 分類情報管理画面に表示するデータを取得
+		List<CategoryConsts> categoryConsts = form.getCategoryResearchResult(form.getCategory());
 
-		try {
-			// 分類情報管理画面に表示するデータを取得
-			List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData(form.getCategory());
-			// 分類一覧情報をセット
-			model.addAttribute("categoryInfoList", categoryInfoList);
-		} catch (NullPointerException e) {
-			// DB情報取得エラー時のメッセージをセット
-			String dbErrorMsg = "データが見つかりませんでした。";
-			model.addAttribute("dbErrorMsg", dbErrorMsg);
-		} catch (PersistenceException e) {
-			// DB情報取得エラー時のメッセージをセット
-			String dbErrorMsg = "データベース操作中にエラーが発生し、分類情報を取得できませんでした。";
-			model.addAttribute("dbErrorMsg", dbErrorMsg);
-		}
+		// 分類一覧情報をセット
+		model.addAttribute("categoryConsts", categoryConsts);
 
 		return "admin/categoryInfoControl/index";
 	}

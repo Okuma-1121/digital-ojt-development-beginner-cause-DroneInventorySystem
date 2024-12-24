@@ -37,13 +37,19 @@
 			<div class="table-responsive" style="text-align: center;">
 				<table class="table table-bordered" id="dataTable">
 					<tbody>
+						<!--/* 
+						分類名取得を定数クラス→DB取得に変更のためコメント化
 						<tr th:each="item : ${categoryConsts}">
-							<td>[[${item.category}]]</td>
+						<td>[[${item.category}]]</td>
+						 */-->
+						<tr th:each="item : ${categoryInfoList}">
+							<td>[[${item.categoryName}]]</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>

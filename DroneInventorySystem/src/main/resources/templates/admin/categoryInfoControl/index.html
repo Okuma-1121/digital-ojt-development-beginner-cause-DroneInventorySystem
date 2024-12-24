@@ -31,6 +31,10 @@
 				<div th:if="${errorMsg != null}" class="text-danger">
 					<p th:text="${errorMsg}"></p>
 				</div>
+				<!-- DB情報取得エラー時のメッセージの表示 -->
+				<div th:if="${dbErrorMsg != null}" class="text-danger">
+					<p th:text="${dbErrorMsg}"></p>
+				</div>
 			</div>
 
 			<!-- 分類情報テーブル -->

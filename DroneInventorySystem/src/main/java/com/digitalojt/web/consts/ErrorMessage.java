@@ -28,5 +28,13 @@ public class ErrorMessage {
 
 	// 分類名が空の場合のエラーメッセージ
 	public static final String CATEGORY_FIELDS_EMPTY_ERROR_MESSAGE = "category.empty";
+	
+	// DataAccessExceptionの場合のエラーメッセージ
+	public static final String DATA_ACCESS_ERROR_MESSAGE = "dataAccess.exception";
 
+	// NullPointerExceptionの場合のエラーメッセージ
+	public static final String NULL_POINTER_ERROR_MESSAGE = "nullPointer.exception";
+	
+	// Exceptionの場合のエラーメッセージ
+	public static final String ALL_ERROR_MESSAGE = "all.exception";
 }

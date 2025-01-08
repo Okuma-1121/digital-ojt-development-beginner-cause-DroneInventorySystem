@@ -1,0 +1,13 @@
+@charset "UTF-8";
+
+
+#custom-card-body{
+	width: 70% !important;
+	margin: auto !important;
+}
+#custom-underline{
+	text-decoration: underline !important;
+} 
+#custom-text-center{
+	text-align: center !important;
+} 

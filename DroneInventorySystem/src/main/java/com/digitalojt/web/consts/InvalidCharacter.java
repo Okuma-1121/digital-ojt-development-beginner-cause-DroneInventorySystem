@@ -27,7 +27,6 @@ public enum InvalidCharacter {
 	 *  
 	 * @param character 列挙定数が表す文字
 	 */
-
 	InvalidCharacter(char character) {
 		this.character = character;
 	}

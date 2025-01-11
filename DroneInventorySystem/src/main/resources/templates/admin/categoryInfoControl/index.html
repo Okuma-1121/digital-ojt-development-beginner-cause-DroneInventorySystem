@@ -12,15 +12,19 @@
 			<h6 class="m-0 font-weight-bold text-primary">分類情報管理</h6>
 		</div>
 
-		<div class="card-body" style="width: 70%; margin: auto;">
+		<!-- CSS共通ファイル化のためコメント化
+		<div class="card-body" style="width: 70%; margin: auto;"> -->
+		<div class="card-body" id="custom-card-body">
 
 			<!-- 検索フォーム -->
 			<div class="search-container">
 				<form class="form-inline" method="post"
 					th:action="@{'/admin/categoryInfoControl/search'}"
 					th:object="${CategoryInfoControlForm}">
+					<!-- CSS共通ファイル化のためコメント化
 					<label for="searchTerm" class="mr-3"
-						style="text-decoration: underline;">検索条件</label>
+						style="text-decoration: underline;">検索条件</label> -->
+					<label for="searchTerm" class="mr-3" id="custom-underline">検索条件</label>
 					<label for="searchTerm" class="mr-2">分類名</label>
 					<input type="text"id="searchTerm" name="category" class="form-control mr-3">
 
@@ -38,7 +42,9 @@
 			</div>
 
 			<!-- 分類情報テーブル -->
-			<div class="table-responsive" style="text-align: center;">
+			<!-- CSS共通ファイル化のためコメント化
+			<div class="table-responsive" style="text-align: center;"> -->
+			<div class="table-responsive"  id="custom-text-center">
 				<table class="table table-bordered" id="dataTable">
 					<tbody>
 						<!--/* 

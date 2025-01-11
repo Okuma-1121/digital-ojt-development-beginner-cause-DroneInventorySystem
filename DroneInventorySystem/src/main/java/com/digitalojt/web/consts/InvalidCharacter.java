@@ -22,10 +22,20 @@ public enum InvalidCharacter {
 
 	private final char character;
 
+	/** 
+	 * InvalidCharacter列挙型のコンストラクタ
+	 *  
+	 * @param character 列挙定数が表す文字
+	 */
 	InvalidCharacter(char character) {
 		this.character = character;
 	}
 
+	/**
+	 * 列挙定数が表す文字を取得
+	 *
+	 * @return 列挙定数が表す文字 
+	 */
 	public char getCharacter() {
 		return character;
 	}

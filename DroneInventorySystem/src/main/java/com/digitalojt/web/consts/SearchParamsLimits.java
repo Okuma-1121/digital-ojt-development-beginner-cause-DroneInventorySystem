@@ -6,7 +6,7 @@ package com.digitalojt.web.consts;
  * 
  * 
  */
-public class Limits {
+public class SearchParamsLimits {
 	
 	// 分類名の最大文字数
 	public static final int CATEGORY_MAX_LENGTH = 15;

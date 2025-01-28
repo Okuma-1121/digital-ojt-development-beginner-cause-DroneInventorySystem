@@ -139,6 +139,10 @@ public class CategoryInfoControlController {
 		*/
 
 		try {
+			//tryCatchテスト用
+			//throw new NullPointerException();
+			//throw new Exception();
+			
 			// 分類情報管理画面に表示するデータを取得
 			List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData(form.getCategory());
 			// 分類一覧情報をセット

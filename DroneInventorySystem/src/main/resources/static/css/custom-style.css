@@ -7,7 +7,10 @@
 }
 #custom-underline{
 	text-decoration: underline !important;
-} 
+}
 #custom-text-center{
 	text-align: center !important;
-} 
+}
+.custom-text-left{
+	text-align: left !important;
+}

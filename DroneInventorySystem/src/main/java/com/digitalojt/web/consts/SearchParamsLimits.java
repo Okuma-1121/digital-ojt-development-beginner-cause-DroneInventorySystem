@@ -14,5 +14,6 @@ public class SearchParamsLimits {
 	// 在庫センター名の最大文字数
 	public static final int CENTER_INFO_MAX_LENGTH = 20;
 	
-	
+	// 在庫名の最大文字数
+	public static final int STOCK_NAME_MAX_LENGTH = 20;
 }

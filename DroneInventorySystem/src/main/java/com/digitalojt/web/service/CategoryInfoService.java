@@ -23,13 +23,22 @@ public class CategoryInfoService {
 	private final CategoryInfoRepository repository;
 
 	/**
-	 * 分類情報を全建検索で取得
+	 * 分類情報を全件検索で取得
 	 * 
 	 * @return
 	 */
 	public List<CategoryInfo> getCategoryInfoData() {
 
 		return repository.findAll();
+	}
+	
+	/**
+	 * 分類情報をを全件検索で取得（削除フラグ「0」のみ)
+	 * 
+	 * @return
+	 */
+	public List<CategoryInfo> getCategoryInfoDataActive() {
+		return repository.findAllActive();
 	}
 	
 	/**

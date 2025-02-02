@@ -32,17 +32,17 @@
 					
 					
 					<label for="searchTerm" class="mr-2">名称</label>
- 					<input type="text" id="searchTerm" name="Name" class="form-control mr-2">
+ 					<input type="text" id="searchTerm" name="name" class="form-control mr-2">
  					
  					
 <!-- 「以上」「以下」を定数にする -->
 					<label for="searchTerm" class="mr-2">個数</label>
 					<input type="text" id="searchTerm" name="amount" class="form-control mr-0">
- 					<select id="searchTerm" name="range" class="form-control mr-2">
-						 <option value="Over">以上</option>
-						 <option value="Under">以下</option>
+					<select id="searchTerm" name="range" class="form-control mr-2">
+						 <option th:each="rangeType : ${rangeType}" 
+						 	th:value="${rangeType.name}" 
+						 	th:text="${rangeType.type}"></option>
 					</select>
-					
 					
  					<button type="submit" class="btn btn-primary">検索</button>
  				</form>

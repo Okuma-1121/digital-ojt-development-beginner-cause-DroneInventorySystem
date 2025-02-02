@@ -59,18 +59,16 @@ public class CategoryInfoControlController {
 						// 分類一覧情報をセット
 						model.addAttribute("categoryInfoList", categoryInfoList);
 			*/
-			//tryCatchテスト用
-			//testDataAccessException();
 			//全分類情報を取得
 			getCategoryInfoList(model);
-			
+
 		} catch (DataAccessException e) {
 			/*			//メッセージ・プロパティにまとめるためコメント化
 						// DB情報取得エラー時のメッセージをセット
 						String dbErrorMsg = "データベース操作中にエラーが発生しました。管理者へ問い合わせください。";
 			*/
 			// エラーメッセージをプロパティファイルから取得
-			String dbErrorMsg = MessageManager.getMessage(messageSource,ErrorMessage.DATA_ACCESS_ERROR_MESSAGE);
+			String dbErrorMsg = MessageManager.getMessage(messageSource, ErrorMessage.DATA_ACCESS_ERROR_MESSAGE);
 			// DB情報取得エラー時のメッセージをセット
 			model.addAttribute("dbErrorMsg", dbErrorMsg);
 		}
@@ -110,20 +108,17 @@ public class CategoryInfoControlController {
 								List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();
 								// 分類一覧情報をセット
 								model.addAttribute("categoryInfoList", categoryInfoList);
-				*/	
-				//tryCatchテスト用
-				//testDataAccessException();
+				*/
 				//全分類情報を取得
 				getCategoryInfoList(model);
-				
-				
+
 			} catch (DataAccessException e) {
 				/*				//メッセージ・プロパティにまとめるためコメント化
 								// DB情報取得エラー時のメッセージをセット
 								String dbErrorMsg = "データベース操作中にエラーが発生しました。管理者へ問い合わせください。";
-				*/				
+				*/
 				// エラーメッセージをプロパティファイルから取得
-				String dbErrorMsg = MessageManager.getMessage(messageSource,ErrorMessage.DATA_ACCESS_ERROR_MESSAGE);
+				String dbErrorMsg = MessageManager.getMessage(messageSource, ErrorMessage.DATA_ACCESS_ERROR_MESSAGE);
 				// DB情報取得エラー時のメッセージをセット
 				model.addAttribute("dbErrorMsg", dbErrorMsg);
 			}
@@ -139,10 +134,6 @@ public class CategoryInfoControlController {
 		*/
 
 		try {
-			//tryCatchテスト用
-			//throw new NullPointerException();
-			//throw new Exception();
-			
 			// 分類情報管理画面に表示するデータを取得
 			List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData(form.getCategory());
 			// 分類一覧情報をセット
@@ -153,7 +144,7 @@ public class CategoryInfoControlController {
 						String dbErrorMsg = "予期せぬエラーが発生しました。管理者へ問い合わせください。(エラーコード：2)";
 			*/
 			// エラーメッセージをプロパティファイルから取得
-			String dbErrorMsg = MessageManager.getMessage(messageSource,ErrorMessage.NULL_POINTER_ERROR_MESSAGE);
+			String dbErrorMsg = MessageManager.getMessage(messageSource, ErrorMessage.NULL_POINTER_ERROR_MESSAGE);
 			// DB情報取得エラー時のメッセージをセット
 			model.addAttribute("dbErrorMsg", dbErrorMsg);
 		} catch (DataAccessException e) {
@@ -162,7 +153,7 @@ public class CategoryInfoControlController {
 						String dbErrorMsg = "データベース操作中にエラーが発生しました。管理者へ問い合わせください。";
 			*/
 			// エラーメッセージをプロパティファイルから取得
-			String dbErrorMsg = MessageManager.getMessage(messageSource,ErrorMessage.DATA_ACCESS_ERROR_MESSAGE);
+			String dbErrorMsg = MessageManager.getMessage(messageSource, ErrorMessage.DATA_ACCESS_ERROR_MESSAGE);
 			// DB情報取得エラー時のメッセージをセット
 			model.addAttribute("dbErrorMsg", dbErrorMsg);
 		} catch (Exception e) {
@@ -171,14 +162,14 @@ public class CategoryInfoControlController {
 						String dbErrorMsg = "予期せぬエラーが発生しました。管理者へ問い合わせください。(エラーコード：1)";
 			*/
 			// エラーメッセージをプロパティファイルから取得
-			String dbErrorMsg = MessageManager.getMessage(messageSource,ErrorMessage.ALL_ERROR_MESSAGE);
+			String dbErrorMsg = MessageManager.getMessage(messageSource, ErrorMessage.ALL_ERROR_MESSAGE);
 			// DB情報取得エラー時のメッセージをセット
 			model.addAttribute("dbErrorMsg", dbErrorMsg);
 		}
 
 		return "admin/categoryInfoControl/index";
 	}
-	
+
 	/**
 	 * 全分類情報を取得
 	 * 
@@ -191,11 +182,11 @@ public class CategoryInfoControlController {
 		// 分類一覧情報をセット
 		model.addAttribute("categoryInfoList", categoryInfoList);
 	}
-	
+
 	public void testDataAccessException() throws DataAccessException {
 		// データベース操作 
-		throw new DataAccessException("データベース操作中にエラーが発生しました") {}; 
+		throw new DataAccessException("データベース操作中にエラーが発生しました") {
+		};
 	}
-	
 
 }

@@ -1,16 +1,16 @@
 package com.digitalojt.web.controller;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.context.MessageSource;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.digitalojt.web.consts.ErrorMessage;
+import com.digitalojt.web.consts.RangeType;
 import com.digitalojt.web.consts.UrlConsts;
 import com.digitalojt.web.entity.CategoryInfo;
 import com.digitalojt.web.entity.StockInfo;
@@ -48,30 +48,29 @@ public class StockListController extends AbstractController {
 	 */
 	@GetMapping(UrlConsts.STOCK_LIST)
 	public String index(Model model) {
-		try {
-			// 在庫一覧画面に表示するデータを取得
-			List<StockInfo> stockInfoList = stockInfoService.getStockInfoData();
 
-			// 画面表示用に情報リストをセット
-			model.addAttribute("stockInfoList", stockInfoList);
+		// 在庫一覧画面に表示するデータを取得
+		List<StockInfo> stockInfoList = stockInfoService.getStockInfoData();
 
-			// プルダウン用に分類名を取得しリストに変換
-			List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoDataActive();
+		// 画面表示用に情報リストをセット
+		model.addAttribute("stockInfoList", stockInfoList);
 
-			// プルダウン用の分類一覧情報をセット
-			model.addAttribute("categoryInfoList", categoryInfoList);
+		// プルダウン用に分類名を取得しリストに変換
+		List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoDataActive();
 
-		} catch (DataAccessException e) {
-			// エラーメッセージをプロパティファイルから取得
-			String dbErrorMsg = MessageManager.getMessage(messageSource, ErrorMessage.DATA_ACCESS_ERROR_MESSAGE);
-			// DB情報取得エラー時のメッセージをセット
-			model.addAttribute("dbErrorMsg", dbErrorMsg);
-		}
+		// プルダウン用の分類一覧情報をセット
+		model.addAttribute("categoryInfoList", categoryInfoList);
+
+		// 検索範囲の条件Enumをリストに変換
+		List<RangeType> rangeTypes = Arrays.asList(RangeType.values());
+
+		// 検索範囲の条件プルダウン情報をセット
+		model.addAttribute("rangeType", rangeTypes);
 
 		return "admin/stockList/index";
 	}
 
-	/**
+	/**	
 	 * 検索結果表示
 	 * 
 	 * @param model
@@ -95,6 +94,12 @@ public class StockListController extends AbstractController {
 			// プルダウン用の分類一覧情報をセット
 			model.addAttribute("categoryInfoList", categoryInfoList);
 
+			// 検索範囲の条件Enumをリストに変換
+			List<RangeType> rangeTypes = Arrays.asList(RangeType.values());
+
+			// 検索範囲の条件プルダウン情報をセット
+			model.addAttribute("rangeType", rangeTypes);
+
 			return "admin/stockList/index";
 		}
 
@@ -110,6 +115,12 @@ public class StockListController extends AbstractController {
 
 		// プルダウン用の分類一覧情報をセット
 		model.addAttribute("categoryInfoList", categoryInfoList);
+
+		// 検索範囲の条件Enumをリストに変換
+		List<RangeType> rangeTypes = Arrays.asList(RangeType.values());
+
+		// 検索範囲の条件プルダウン情報をセット
+		model.addAttribute("rangeType", rangeTypes);
 
 		return "admin/stockList/index";
 	}

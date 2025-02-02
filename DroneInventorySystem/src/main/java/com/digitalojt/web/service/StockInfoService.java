@@ -31,25 +31,60 @@ public class StockInfoService {
 		return repository.findAllActive();
 	}
 
+	//	/**
+	//	 * 引数に合致する在庫情報を取得
+	//	 * 
+	//	 * @param categoryId
+	//	 * @param name 
+	//	 * @param amount
+	//	 * @param range
+	//	 * @return 個数の範囲条件によって以下の検索結果を取得
+	//	 * 　　　　・「以上」の場合の検索結果
+	//	 * 　　　　・「以上」の場合の検索結果
+	//	 * 　　　　・「以下」の場合の検索結果
+	//	 * 　　　　・「以下」「以上」以外の場合「IllegalArgumentException」にする	
+	//	 */
+	//	public List<StockInfo> getStockInfoData(String categoryId, String name, Integer amount, String range) {
+	//		if (range.equals("over")) {
+	//			return repository.findByCategoryInfoCategoryIdAndNameAndAmountLessThanEqual(categoryId, name, amount);
+	//		} else if (range.equals("under")) {
+	//			return repository.findByCategoryInfoCategoryIdAndNameAndAmountGreaterThanEqual(categoryId, name, amount);
+	//		} else {
+	//			throw new IllegalArgumentException("Invalid range: " + range);
+	//		}
+	//	}
 	/**
-	 * 個数の範囲条件が「以上」の場合、引数に合致する在庫情報を取得
+	 * 引数に合致する在庫情報を取得
 	 * 
 	 * @param categoryId
 	 * @param name 
 	 * @param amount
 	 * @param range
-	 * @return 個数の範囲条件によって以下の検索結果を取得
-	 * 　　　　・「以上」の場合の検索結果
-	 * 　　　　・「以下」の場合の検索結果
+	 * @return 個数の範囲と分類の条件によって以下の検索結果を取得
+	 * 　　　　・「以上」かつ「すべて」の場合の検索結果
+	 * 　　　　・「以上」かつ「すべて以外」」の場合の検索結果
+	 * 　　　　・「以下」かつ「すべて」の場合の検索結果
+	 * 　　　　・「以下」かつ「すべて以外」の場合の検索結果
 	 * 　　　　・「以下」「以上」以外の場合「IllegalArgumentException」にする	
 	 */
-	public List<StockInfo> getStockInfoData(long categoryId, String name, long amount, String range) {
-		if (range.equals("over")) {
-			return repository.findByCategoryInfoCategoryIdAndNameAndAmountLessThanEqual(categoryId, name, amount);
-		} else if (range.equals("under")) {
-			return repository.findByCategoryInfoCategoryIdAndNameAndAmountGreaterThanEqual(categoryId, name, amount);
-		} else {
-			throw new IllegalArgumentException("Invalid range: " + range);
+	public List<StockInfo> getStockInfoData(String categoryId, String name, Integer amount, String range) {
+		//個数の範囲「以上」
+		if ("OVER".equals(range)) {
+			if (categoryId.equals("")) {
+				return repository.findByNameAndAmountGreaterThanEqual(name, amount);
+			} else {
+				return repository.findByCategoryInfoCategoryIdAndNameAndAmountGreaterThanEqual(categoryId, name,
+						amount);
+			}
 		}
+		//個数の範囲「以下」
+		if ("UNDER".equals(range)) {
+			if (categoryId.equals("")) {
+				return repository.findByNameAndAmountLessThanEqual(name, amount);
+			} else {
+				return repository.findByCategoryInfoCategoryIdAndNameAndAmountLessThanEqual(categoryId, name, amount);
+			}
+		}
+		throw new IllegalArgumentException("Invalid range: " + range);
 	}
 }

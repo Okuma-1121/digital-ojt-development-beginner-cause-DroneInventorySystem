@@ -32,21 +32,20 @@ public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 	 * @param name 在庫名
 	 * @param amount 
 	 * @return paramで検索した結果
-	 */	
+	 */
+
 	@Query("SELECT s FROM StockInfo s WHERE " +
-	"(:categoryId = 0 OR s.categoryInfo.categoryId = :categoryId) AND " +
-	"(:name = '' OR s.name LIKE %:name%) AND " +
-	"(:amount = 0 OR s.amount <= :amount) AND " +
-	"(s.deleteFlag = 0)")
-	List<StockInfo> findByCategoryInfoCategoryIdAndNameAndAmountLessThanEqual(
-	long categoryId,
-	String name,
-	long amount);
-
-
+			"(:categoryId IS NULL OR s.categoryInfo.categoryId = :categoryId) AND " +
+			"(:name = '' OR s.name LIKE %:name%) AND " +
+			"(:amount IS NULL OR s.amount >= :amount) AND " +
+			"(s.deleteFlag = 0)")
+	List<StockInfo> findByCategoryInfoCategoryIdAndNameAndAmountGreaterThanEqual(
+			Integer categoryId,
+			String name,
+			Integer amount);
 
 	/**
-	 * 個数の範囲条件が「以下」の）場合、引数に合致する在庫情報を取得
+	 * 個数の範囲条件が「以下」の場合、引数に合致する在庫情報を取得
 	 * 
 	 * @param categoryId
 	 * @param name 在庫名
@@ -54,14 +53,14 @@ public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 	 * @return paramで検索した結果
 	 */
 
-	@Query("SELECT s FROM StockInfo s WHERE "+
-			"(:categoryId = 0 OR s.categoryInfo.categoryId = :categoryId) AND " +
+	@Query("SELECT s FROM StockInfo s WHERE " +
+			"(:categoryId IS NULL OR s.categoryInfo.categoryId = :categoryId) AND " +
 			"(:name = '' OR s.name LIKE %:name%) AND " +
-			"(:amount = 0 OR s.amount >= :amount) AND " +
+			"(:amount IS NULL OR s.amount <= :amount) AND " +
 			"s.deleteFlag = 0")
-	List<StockInfo> findByCategoryInfoCategoryIdAndNameAndAmountGreaterThanEqual(
-			long categoryId,
+	List<StockInfo> findByCategoryInfoCategoryIdAndNameAndAmountLessThanEqual(
+			Integer categoryId,
 			String name,
-			long amount);
+			Integer amount);
 
 }

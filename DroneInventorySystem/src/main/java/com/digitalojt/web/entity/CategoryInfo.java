@@ -25,7 +25,7 @@ public class CategoryInfo {
 	 * 分類ID
 	 */
 	@Id
-	private int categoryId;
+	private Integer categoryId;
 
 	/**
 	 * 分類名

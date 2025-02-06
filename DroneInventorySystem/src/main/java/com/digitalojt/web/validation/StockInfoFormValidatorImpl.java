@@ -1,5 +1,7 @@
 package com.digitalojt.web.validation;
 
+import org.thymeleaf.util.StringUtils;
+
 import com.digitalojt.web.consts.ErrorMessage;
 import com.digitalojt.web.consts.SearchParamsLimits;
 import com.digitalojt.web.form.StockInfoForm;
@@ -22,97 +24,84 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 
 		// 最大文字数
 		int MAX_LENGTH = SearchParamsLimits.STOCK_NAME_MAX_LENGTH;
-		
-		
-		
-//		
-//		//入力フィールドが全て空の場合
-//		boolean allFieldsEmpty = form.getCategoryId() == 0 &&
-//				StringUtils.isEmpty(form.getName()) &&
-//				StringUtils.isEmpty(form.getAmount())&&
-//				StringUtils.isEmpty(form.getRange());
-//		// すべてのフィールドが空かをチェック
-//		if (allFieldsEmpty) {
-//			context.disableDefaultConstraintViolation();
-//			context.buildConstraintViolationWithTemplate(ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE)
-//					.addConstraintViolation();
-//			return false;
-//		}
-		
-		
-		
-		
-//分類名のチェック		
-		// 都道府県のチェック
-		if (form.getCategoryId() != 0) {
+		// 分類IDの最大数
+		int CATEGORYID_MAX_NUM = SearchParamsLimits.CATEGORYID_MAX_NUM;
+		// 在庫の最大数
+		int STOCK_MAX_NUM = SearchParamsLimits.STOCK_MAX_NUM;
+
+		//分類IDのチェック		
+		if (form.getCategoryId() != null) {
+
+			//0より大きく最大数より小さいかチェック
+			if (0 > form.getCategoryId() || CATEGORYID_MAX_NUM < form.getCategoryId()) {
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(ErrorMessage.CATEGORY_ID_MAXIMUM_LIMIT_ERROR_MESSAGE)
+						.addConstraintViolation();
+				return false;
+
+			}
+		}
+
+		//在庫名のチェック
+		if (form.getName() != null) {
 
 			// 不正文字列チェック
-			if (ParmCheckUtil.isParameterInvalid(form.getCategoryId())) {
+			if (ParmCheckUtil.isParameterInvalid(form.getName())) {
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(ErrorMessage.INVALID_INPUT_ERROR_MESSAGE)
+						.addConstraintViolation();
+				return false;
+			}
+
+			// 文字数チェック
+			if (form.getName().length() > MAX_LENGTH) {
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(ErrorMessage.STOCK_NAME_LENGTH_ERROR_MESSAGE)
+						.addConstraintViolation();
+				return false;
+			}
+		}
+
+		//個数のチェック
+		if (form.getAmount() != null) {
+
+			//0以上最大数以下かチェック
+			if (0 < form.getAmount() && STOCK_MAX_NUM >= form.getAmount()) {
+				//0以上最大数以下の場合正常
+
+			} else {
+				context.disableDefaultConstraintViolation();
+				context.buildConstraintViolationWithTemplate(ErrorMessage.STOCK_NUM_INPUT_ERROR_MESSAGE)
+						.addConstraintViolation();
+				return false;
+			}
+		}
+
+		//個数の範囲条件のチェック
+		if (form.getRange() != null) {
+
+			// 不正文字列チェック
+			if (ParmCheckUtil.isParameterInvalid(form.getRange())) {
 				context.disableDefaultConstraintViolation();
 				context.buildConstraintViolationWithTemplate(ErrorMessage.INVALID_INPUT_ERROR_MESSAGE)
 						.addConstraintViolation();
 				return false;
 			}
 		}
-		
-		
-		
-//		
-////在庫名のチェック
-//		// センター名のチェック
-//		if (form.getCenterName() != null) {
-//
-//			// 不正文字列チェック
-//			if (ParmCheckUtil.isParameterInvalid(form.getCenterName())) {
-//				context.disableDefaultConstraintViolation();
-//				context.buildConstraintViolationWithTemplate(ErrorMessage.INVALID_INPUT_ERROR_MESSAGE)
-//						.addConstraintViolation();
-//				return false;
-//			}
-//
-//			// 文字数チェック
-//			/**
-//			 *  TODO:Formクラスをシンプルにしたく、@Sizeを使わずこちらで桁数チェックを行いました。
-//			 *  	 車輪の再発明なので、しないほうがいいでしょうか？
-//			 */
-//			if (form.getCenterName().length() > MAX_LENGTH) {
-//				context.disableDefaultConstraintViolation();
-//				context.buildConstraintViolationWithTemplate(ErrorMessage.CENTER_NAME_LENGTH_ERROR_MESSAGE)
-//						.addConstraintViolation();
-//				return false;
-//			}
-//		}
-//
-//		
-//		
-////個数のチェック
-//		// 都道府県のチェック
-//		if (form.getRegion() != null) {
-//
-//			// 不正文字列チェック
-//			if (ParmCheckUtil.isParameterInvalid(form.getRegion())) {
-//				context.disableDefaultConstraintViolation();
-//				context.buildConstraintViolationWithTemplate(ErrorMessage.INVALID_INPUT_ERROR_MESSAGE)
-//						.addConstraintViolation();
-//				return false;
-//			}
-//		}
-//		
-//		
-////個数の範囲条件のチェック
-//				// 都道府県のチェック
-//				if (form.getRegion() != null) {
-//
-//					// 不正文字列チェック
-//					if (ParmCheckUtil.isParameterInvalid(form.getRegion())) {
-//						context.disableDefaultConstraintViolation();
-//						context.buildConstraintViolationWithTemplate(ErrorMessage.INVALID_INPUT_ERROR_MESSAGE)
-//								.addConstraintViolation();
-//						return false;
-//					}
-//				}
-//
-		// その他のバリデーションに問題なければtrueを返す
+
+		//入力フィールドが全て空かをチェック
+		boolean allFieldsEmpty = form.getCategoryId() == null &&
+				StringUtils.isEmpty(form.getName()) &&
+				form.getAmount() == null;
+
+		if (allFieldsEmpty) {
+			context.disableDefaultConstraintViolation();
+			context.buildConstraintViolationWithTemplate(ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE)
+					.addConstraintViolation();
+			return false;
+		}
+
+		//その他のバリデーションに問題なければtrueを返す
 		return true;
 	}
 }

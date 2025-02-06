@@ -1,6 +1,6 @@
 package com.digitalojt.web.form;
 
-import com.digitalojt.web.validation.CenterInfoFormValidator;
+import com.digitalojt.web.validation.StockInfoFormValidator;
 
 import lombok.Data;
 
@@ -11,24 +11,24 @@ import lombok.Data;
  *
  */
 @Data
-@CenterInfoFormValidator
+@StockInfoFormValidator
 public class StockInfoForm {
 
 	/**
 	 * 分類ID
 	 */
-	private long categoryId;
+	private Integer categoryId;
 
 	/**
 	 * 在庫名
 	 */
-	private String Name;
+	private String name;
 
 	/**
 	 * 個数
 	 */
-	private long amount;
-
+	private Integer amount;
+	
 	/**
 	 * 個数の検索範囲
 	 */

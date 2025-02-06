@@ -50,7 +50,7 @@ public class StockInfo {
 	/**
 	 * 個数
 	 */
-	private long amount;
+	private Integer amount;
 
 	/**
 	 * 論理削除フラグ
@@ -71,7 +71,7 @@ public class StockInfo {
 		return categoryInfo != null ? categoryInfo.getCategoryName() : null;
 	}
 
-	public int getCategoryId() {
+	public Integer getCategoryId() {
 		return categoryInfo != null ? categoryInfo.getCategoryId() : null;
 	}
 

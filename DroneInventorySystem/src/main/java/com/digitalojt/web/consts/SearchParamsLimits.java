@@ -16,4 +16,10 @@ public class SearchParamsLimits {
 	
 	// 在庫名の最大文字数
 	public static final int STOCK_NAME_MAX_LENGTH = 20;
+	
+	// 在庫数の最大数
+	public static final int STOCK_MAX_NUM = 9999;
+	
+	// 分類IDの最大数
+	public static final int CATEGORYID_MAX_NUM = 9;
 }

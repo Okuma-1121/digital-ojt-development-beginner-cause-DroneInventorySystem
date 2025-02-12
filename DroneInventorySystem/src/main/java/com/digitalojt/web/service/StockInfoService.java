@@ -38,21 +38,10 @@ public class StockInfoService {
 	 * @param name 
 	 * @param amount
 	 * @param range
-	 * @return 個数の範囲によって以下の検索結果を取得
-	 * 　　　　・「以上」の場合の検索結果
-	 * 　　　　・「以下」の場合の検索結果
-	 * 　　　　・「以下」「以上」以外の場合「IllegalArgumentException」にする	
+	 * @return 
+	 * 
 	 */
 	public List<StockInfo> getStockInfoData(Integer categoryId, String name, Integer amount, String range) {
-		//個数の範囲「以上」
-		if ("OVER".equals(range)) {
-			return repository.findByCategoryInfoCategoryIdAndNameAndAmountGreaterThanEqual(categoryId, name, amount);
-
-		}
-		//個数の範囲「以下」
-		if ("UNDER".equals(range)) {
-			return repository.findByCategoryInfoCategoryIdAndNameAndAmountLessThanEqual(categoryId, name, amount);
-		}
-		throw new IllegalArgumentException("Invalid range: " + range);
+		return repository.findByCategoryInfoCategoryIdAndNameAndAmount(categoryId, name, amount, range);
 	}
 }

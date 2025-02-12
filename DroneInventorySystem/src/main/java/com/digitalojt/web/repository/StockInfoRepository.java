@@ -37,30 +37,13 @@ public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 	@Query("SELECT s FROM StockInfo s WHERE " +
 			"(:categoryId IS NULL OR s.categoryInfo.categoryId = :categoryId) AND " +
 			"(:name = '' OR s.name LIKE %:name%) AND " +
-			"(:amount IS NULL OR s.amount >= :amount) AND " +
+			"(:amount IS NULL OR (:range = 'OVER' AND s.amount >= :amount) OR (:range = 'UNDER' AND s.amount <= :amount)) AND "
+			+
 			"(s.deleteFlag = 0)")
-	List<StockInfo> findByCategoryInfoCategoryIdAndNameAndAmountGreaterThanEqual(
+	List<StockInfo> findByCategoryInfoCategoryIdAndNameAndAmount(
 			Integer categoryId,
 			String name,
-			Integer amount);
-
-	/**
-	 * 個数の範囲条件が「以下」の場合、引数に合致する在庫情報を取得
-	 * 
-	 * @param categoryId
-	 * @param name 在庫名
-	 * @param amount
-	 * @return paramで検索した結果
-	 */
-
-	@Query("SELECT s FROM StockInfo s WHERE " +
-			"(:categoryId IS NULL OR s.categoryInfo.categoryId = :categoryId) AND " +
-			"(:name = '' OR s.name LIKE %:name%) AND " +
-			"(:amount IS NULL OR s.amount <= :amount) AND " +
-			"s.deleteFlag = 0")
-	List<StockInfo> findByCategoryInfoCategoryIdAndNameAndAmountLessThanEqual(
-			Integer categoryId,
-			String name,
-			Integer amount);
+			Integer amount,
+			String range);
 
 }

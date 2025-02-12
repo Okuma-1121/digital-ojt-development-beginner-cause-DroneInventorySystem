@@ -22,23 +22,24 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 	@Override
 	public boolean isValid(StockInfoForm form, ConstraintValidatorContext context) {
 
-		// 最大文字数
+		// 在庫名の最大文字数
 		int MAX_LENGTH = SearchParamsLimits.STOCK_NAME_MAX_LENGTH;
 		// 分類IDの最大数
 		int CATEGORYID_MAX_NUM = SearchParamsLimits.CATEGORYID_MAX_NUM;
+		// 分類IDの最小数
+		int CATEGORYID_MIN_NUM = SearchParamsLimits.CATEGORYID_MIN_NUM;
 		// 在庫の最大数
 		int STOCK_MAX_NUM = SearchParamsLimits.STOCK_MAX_NUM;
+		// 在庫の最大数
+		int STOCK_MIN_NUM = SearchParamsLimits.STOCK_MIN_NUM;
 
 		//分類IDのチェック		
 		if (form.getCategoryId() != null) {
 
-			//0より大きく最大数より小さいかチェック
-			if (0 > form.getCategoryId() || CATEGORYID_MAX_NUM < form.getCategoryId()) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(ErrorMessage.CATEGORY_ID_MAXIMUM_LIMIT_ERROR_MESSAGE)
-						.addConstraintViolation();
+			//最小数以上かつ最大数以下かチェック
+			if (CATEGORYID_MIN_NUM > form.getCategoryId() || CATEGORYID_MAX_NUM < form.getCategoryId()) {
+				setErrorMessage(context, ErrorMessage.CATEGORY_ID_MAXIMUM_LIMIT_ERROR_MESSAGE);
 				return false;
-
 			}
 		}
 
@@ -47,17 +48,13 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 
 			// 不正文字列チェック
 			if (ParmCheckUtil.isParameterInvalid(form.getName())) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(ErrorMessage.INVALID_INPUT_ERROR_MESSAGE)
-						.addConstraintViolation();
+				setErrorMessage(context, ErrorMessage.INVALID_INPUT_ERROR_MESSAGE);
 				return false;
 			}
 
 			// 文字数チェック
 			if (form.getName().length() > MAX_LENGTH) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(ErrorMessage.STOCK_NAME_LENGTH_ERROR_MESSAGE)
-						.addConstraintViolation();
+				setErrorMessage(context, ErrorMessage.STOCK_NAME_LENGTH_ERROR_MESSAGE);
 				return false;
 			}
 		}
@@ -65,43 +62,56 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 		//個数のチェック
 		if (form.getAmount() != null) {
 
-			//0以上最大数以下かチェック
-			if (0 < form.getAmount() && STOCK_MAX_NUM >= form.getAmount()) {
-				//0以上最大数以下の場合正常
-
-			} else {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(ErrorMessage.STOCK_NUM_INPUT_ERROR_MESSAGE)
-						.addConstraintViolation();
+			//最小数以上かつ最大数以下かチェック
+			if (STOCK_MIN_NUM > form.getAmount() || STOCK_MAX_NUM < form.getAmount()) {
+				setErrorMessage(context, ErrorMessage.STOCK_NUM_INPUT_ERROR_MESSAGE);
 				return false;
 			}
 		}
 
-		//個数の範囲条件のチェック
+		//個数の検索の条件(以上・以下）のチェック
 		if (form.getRange() != null) {
 
 			// 不正文字列チェック
 			if (ParmCheckUtil.isParameterInvalid(form.getRange())) {
-				context.disableDefaultConstraintViolation();
-				context.buildConstraintViolationWithTemplate(ErrorMessage.INVALID_INPUT_ERROR_MESSAGE)
-						.addConstraintViolation();
+				setErrorMessage(context, ErrorMessage.INVALID_INPUT_ERROR_MESSAGE);
 				return false;
 			}
+
 		}
 
 		//入力フィールドが全て空かをチェック
-		boolean allFieldsEmpty = form.getCategoryId() == null &&
-				StringUtils.isEmpty(form.getName()) &&
-				form.getAmount() == null;
 
-		if (allFieldsEmpty) {
-			context.disableDefaultConstraintViolation();
-			context.buildConstraintViolationWithTemplate(ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE)
-					.addConstraintViolation();
+		if (areAllFieldsEmpty(form)) {
+			setErrorMessage(context, ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE);
 			return false;
 		}
 
 		//その他のバリデーションに問題なければtrueを返す
 		return true;
+	}
+
+	/**	
+	 * 入力フィールド(分類・名称・個数)が全て空かをチェック
+	 * 
+	 * @param form
+	 * @return boolean
+	 * 
+	 */
+	private boolean areAllFieldsEmpty(StockInfoForm form) {
+		return form.getCategoryId() == null && StringUtils.isEmpty(form.getName()) && form.getAmount() == null;
+	}
+
+	/**	
+	 * エラーメッセージを設定
+	 * 
+	 * @param context
+	 * @param errorMessage
+	 * 
+	 */
+	private void setErrorMessage(ConstraintValidatorContext context, String errorMessage) {
+		context.disableDefaultConstraintViolation();
+		context.buildConstraintViolationWithTemplate(errorMessage)
+				.addConstraintViolation();
 	}
 }

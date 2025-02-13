@@ -18,6 +18,15 @@ import com.digitalojt.web.entity.CategoryInfo;
 public interface CategoryInfoRepository extends JpaRepository<CategoryInfo, Integer> {
 
 	/**
+	 * 削除フラグが「0」の分類情報を取得
+	 * 
+	 * @return
+	 */
+	@Query("SELECT s FROM CategoryInfo s WHERE s.deleteFlag = '0' ORDER BY categoryId ASC")
+	List<CategoryInfo> findAllActive();
+
+	
+	/**
 	 * 引数に合致する分類情報を取得
 	 * 
 	 * @param categoryName

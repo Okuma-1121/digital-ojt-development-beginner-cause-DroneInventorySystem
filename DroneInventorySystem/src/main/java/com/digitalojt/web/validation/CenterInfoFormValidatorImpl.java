@@ -3,7 +3,7 @@ package com.digitalojt.web.validation;
 import org.thymeleaf.util.StringUtils;
 
 import com.digitalojt.web.consts.ErrorMessage;
-import com.digitalojt.web.consts.Limits;
+import com.digitalojt.web.consts.SearchParamsLimits;
 import com.digitalojt.web.form.CenterInfoForm;
 import com.digitalojt.web.util.ParmCheckUtil;
 
@@ -24,7 +24,7 @@ public class CenterInfoFormValidatorImpl implements ConstraintValidator<CenterIn
 	public boolean isValid(CenterInfoForm form, ConstraintValidatorContext context) {
 
 		// 最大文字数
-		int MAX_LENGTH = Limits.CENTER_INFO_MAX_LENGTH;
+		int MAX_LENGTH = SearchParamsLimits.CENTER_INFO_MAX_LENGTH;
 
 		boolean allFieldsEmpty = StringUtils.isEmpty(form.getCenterName()) &&
 				StringUtils.isEmpty(form.getRegion());

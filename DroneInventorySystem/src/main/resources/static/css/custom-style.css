@@ -14,3 +14,16 @@
 .custom-text-left{
 	text-align: left !important;
 }
+.custum-btn-new{
+	background-color: #CC0033 !important;
+	position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+}
+.form-label{
+	width: 200px !important;  /* ラベルの固定幅を設定 */
+}
+#custum-form{
+	display: flex !important;
+}
+

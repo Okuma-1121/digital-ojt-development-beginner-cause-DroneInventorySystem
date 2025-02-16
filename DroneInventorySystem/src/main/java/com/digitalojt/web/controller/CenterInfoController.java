@@ -72,9 +72,10 @@ public class CenterInfoController {
 
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
-			
+
 			// エラーメッセージをプロパティファイルから取得
-			String errorMsg = MessageManager.getMessage(messageSource, bindingResult.getGlobalError().getDefaultMessage());
+			String errorMsg = MessageManager.getMessage(messageSource,
+					bindingResult.getGlobalError().getDefaultMessage());
 			model.addAttribute("errorMsg", errorMsg);
 
 			// 都道府県Enumをリストに変換
@@ -86,6 +87,60 @@ public class CenterInfoController {
 			return "admin/centerInfo/index";
 		}
 
+		// 在庫センター情報画面に表示するデータを取得
+		List<CenterInfo> centerInfoList = centerInfoService.getCenterInfoData(form.getCenterName(), form.getRegion());
+
+		// 画面表示用に商品情報リストをセット
+		model.addAttribute("centerInfoList", centerInfoList);
+
+		// 都道府県Enumをリストに変換
+		List<Region> regions = Arrays.asList(Region.values());
+
+		// 都道府県プルダウン情報をセット
+		model.addAttribute("regions", regions);
+
+		return "admin/centerInfo/index";
+	}
+
+	/**
+	 * 登録入力画面表示
+	 * 
+	 * @param model
+	 * @return
+	 */
+	@PostMapping(UrlConsts.CENTER_INFO_REGISTER)
+	public String register(Model model) {
+		return "admin/centerInfo/register";
+	}
+
+	/**
+	 * 登録結果表示
+	 * 
+	 * @param model
+	 * @param form
+	 * @param bindingResult
+	 * @return
+	 */
+	@PostMapping(UrlConsts.CENTER_INFO_REGISTRATION_COMPLETED)
+	public String registrationCompleted(Model model, @Valid CenterInfoForm form, BindingResult bindingResult) {
+		// Valid項目チェック
+		if (bindingResult.hasErrors()) {
+
+//何項目のエラーか把握し、それによりエラーメッセージを入力する個所を変更する
+			
+			
+			// エラーメッセージをプロパティファイルから取得
+			String errorMsg = MessageManager.getMessage(messageSource,
+					bindingResult.getGlobalError().getDefaultMessage());
+			model.addAttribute("errorMsg", errorMsg);
+			
+			return "admin/centerInfo/register";
+		}
+		
+		// 登録完了メッセージをプロパティファイルから取得
+		String completedMsg =MessageManager.getMessage(messageSource,"REGISTRATION_COMPLETED");
+		model.addAttribute("completedMsg", completedMsg);
+		
 		// 在庫センター情報画面に表示するデータを取得
 		List<CenterInfo> centerInfoList = centerInfoService.getCenterInfoData(form.getCenterName(), form.getRegion());
 

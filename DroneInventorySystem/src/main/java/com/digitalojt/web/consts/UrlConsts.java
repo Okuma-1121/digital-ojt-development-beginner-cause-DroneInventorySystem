@@ -33,6 +33,12 @@ public class UrlConsts {
 	// 在庫センター情報画面 検索
 	public static final String CENTER_INFO_SEARCH = "/admin/centerInfo/search";
 	
+	// 在庫センター情報画面 登録
+	public static final String CENTER_INFO_REGISTER = "/admin/centerInfo/register";
+	
+	// 在庫センター情報画面 登録完了
+		public static final String CENTER_INFO_REGISTRATION_COMPLETED = "/admin/centerInfo/registrationCompleted";
+	
 	// 認証不要画面
 	public static final String[] NO_AUTHENTICATION = {LOGIN, AUTHENTICATE};
 	

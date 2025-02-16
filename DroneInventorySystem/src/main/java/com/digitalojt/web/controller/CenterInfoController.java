@@ -2,6 +2,7 @@ package com.digitalojt.web.controller;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -10,10 +11,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.digitalojt.web.consts.CompletedMessage;
 import com.digitalojt.web.consts.Region;
 import com.digitalojt.web.consts.UrlConsts;
 import com.digitalojt.web.entity.CenterInfo;
 import com.digitalojt.web.form.CenterInfoForm;
+import com.digitalojt.web.form.RegisterCenterInfoForm;
 import com.digitalojt.web.service.CenterInfoService;
 import com.digitalojt.web.util.MessageManager;
 
@@ -35,6 +38,8 @@ public class CenterInfoController {
 
 	/** メッセージソース */
 	private final MessageSource messageSource;
+	
+	
 
 	/**
 	 * 初期表示
@@ -122,7 +127,7 @@ public class CenterInfoController {
 	 * @return
 	 */
 	@PostMapping(UrlConsts.CENTER_INFO_REGISTRATION_COMPLETED)
-	public String registrationCompleted(Model model, @Valid CenterInfoForm form, BindingResult bindingResult) {
+	public String registrationCompleted(Model model, @Valid RegisterCenterInfoForm registerForm, CenterInfoForm form,BindingResult bindingResult) {
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 
@@ -138,7 +143,7 @@ public class CenterInfoController {
 		}
 		
 		// 登録完了メッセージをプロパティファイルから取得
-		String completedMsg =MessageManager.getMessage(messageSource,"REGISTRATION_COMPLETED");
+		String completedMsg = messageSource.getMessage(CompletedMessage.REGISTRATION_COMPLETED, null, Locale.getDefault());
 		model.addAttribute("completedMsg", completedMsg);
 		
 		// 在庫センター情報画面に表示するデータを取得

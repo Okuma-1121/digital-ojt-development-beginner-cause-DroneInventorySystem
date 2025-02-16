@@ -42,17 +42,17 @@ public class RegisterCenterInfoForm {
 	/**
 	 * 稼働状況ステータス
 	 */
-	private String operationalStatus;
+	private int operationalStatus;
 
 	/**
 	 * 最大保管容量（m³）
 	 */
-	private String maxStorageCapacity;
+	private int maxStorageCapacity;
 
 	/**
 	 * 現在保管容量（m³）
 	 */
-	private String currentStorageCapacity;
+	private int currentStorageCapacity;
 
 	/**
 	 * 備考

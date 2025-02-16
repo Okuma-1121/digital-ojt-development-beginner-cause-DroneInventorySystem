@@ -42,24 +42,15 @@ public class RegisterCenterInfoFormValidatorImpl
 			}
 		}
 		
-		
 		// 郵便番号のチェック
 		if (form.getPostCode() != null) {
 
             // 正規表現によるフォーマットチェック
-			
-			
-            String postCodePattern = "^[0-9]{3}-[0-9]{4}$";
-            
-            
-            
-            
-            if (!form.getPostCode().matches(postCodePattern)) {
+            if (!form.getPostCode().matches(SearchParamsLimits.POST_CODE_FORMAT)) {
                 setErrorMessage(context, ErrorMessage.INVALID_POST_CODE_ERROR_MESSAGE);
                 return false;
             }
         }
-		
 		
 		// 住所のチェック
 		if (form.getAddress() != null) {
@@ -77,13 +68,11 @@ public class RegisterCenterInfoFormValidatorImpl
 		    }
 		}
 		
-		
 		// 電話番号のチェック
 		if (form.getPhoneNumber() != null) {
 
 		    // 正規表現によるフォーマットチェック
-		    String phoneNumberPattern = "^[0-9]{2,4}-[0-9]{2,4}-[0-9]{4}$";
-		    if (!form.getPhoneNumber().matches(phoneNumberPattern)) {
+		    if (!form.getPhoneNumber().matches(SearchParamsLimits.PHONE_NUMBER_FORMAT)) {
 		        setErrorMessage(context, ErrorMessage.INVALID_PHONE_NUMBER_ERROR_MESSAGE);
 		        return false;
 		    }
@@ -109,7 +98,7 @@ public class RegisterCenterInfoFormValidatorImpl
 		
 		// 稼働状況ステータスのチェック
 		if (form.getOperationalStatus() < 0 || form.getOperationalStatus() > 1) {
-		    setErrorMessage(context, ErrorMessage.INVALID_OPERATIONAL_STATUS_ERROR_MESSAGE);
+		    setErrorMessage(context, ErrorMessage.UNEXPECTED_INPUT_ERROR_MESSAGE);
 		    return false;
 		}
 		

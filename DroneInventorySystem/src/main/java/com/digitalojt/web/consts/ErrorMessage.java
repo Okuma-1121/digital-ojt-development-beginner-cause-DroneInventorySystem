@@ -38,6 +38,29 @@ public class ErrorMessage {
 	// 在庫数項目で不正な値を使用した検索に関するエラーメッセージ
 	public static final String STOCK_NUM_INPUT_ERROR_MESSAGE = "stockNum.input";
 	
+	
+	
+//メッセージプロパティにメッセージ未登録
+	
+	// 郵便番号に関するエラーメッセージ
+	public static final String INVALID_POST_CODE_ERROR_MESSAGE = "invalid.postCode.Input";
+	
+	// 文字超過に関するエラーメッセージ（住所）
+	public static final String ADDRESS_LENGTH_ERROR_MESSAGE = "address.length.wrongInput";
+		
+	// 電話番号に関するエラーメッセージ
+	public static final String INVALID_PHONE_NUMBER_ERROR_MESSAGE = "invalid.phoneNumber.Input";
+	
+	// 文字超過に関するエラーメッセージ（管理者名）
+	public static final String MANAGER_NAME_LENGTH_ERROR_MESSAGE = "managerName.length.wrongInput";
+	
+	// 文字超過に関するエラーメッセージ（管理者名）
+	public static final String MANAGER_NAME_LENGTH_ERROR_MESSAGE = "managerName.length.wrongInput";
+	
+	
+	
+	
+	
 	// DataAccessExceptionの場合のエラーメッセージ
 	public static final String DATA_ACCESS_ERROR_MESSAGE = "dataAccess.exception";
 

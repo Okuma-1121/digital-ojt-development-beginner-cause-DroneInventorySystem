@@ -29,4 +29,17 @@ public class SearchParamsLimits {
 
 	// 分類IDの最小数
 	public static final int CATEGORYID_MIN_NUM = 1;
+	
+	// 住所の最大文字数
+	public static final int ADDRESS_MAX_LENGTH = 15;
+	
+	//管理者名の最大文字数
+	public static final int MANAGER_NAME_MAX_LENGTH = 20;
+	
+	// 郵便番号のフォーマット
+	public static final String POST_CODE_FORMAT = "^[0-9]{3}-[0-9]{4}$";
+	
+	// 電話番号のフォーマット
+	public static final String PHONE_NUMBER_FORMAT = "^[0-9]{2,4}-[0-9]{2,4}-[0-9]{4}$";
+	
 }

@@ -20,10 +20,10 @@ public enum CategoryConsts {
 	private final String category;
 
 	CategoryConsts(String category) {
-        this.category = category;
-    }
+		this.category = category;
+	}
 
-    public String getCategory() {
-        return category;
-    }
+	public String getCategory() {
+		return category;
+	}
 }

@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * ログイン画面のサービスクラス
  *
- * @author Okuma
+ * @author your name
  * 
  */
 @Service

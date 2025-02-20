@@ -47,12 +47,12 @@ public class RegisterCenterInfoForm {
 	/**
 	 * 最大保管容量（m³）
 	 */
-	private int maxStorageCapacity;
+	private String maxStorageCapacity;
 
 	/**
 	 * 現在保管容量（m³）
 	 */
-	private int currentStorageCapacity;
+	private String currentStorageCapacity;
 
 	/**
 	 * 備考

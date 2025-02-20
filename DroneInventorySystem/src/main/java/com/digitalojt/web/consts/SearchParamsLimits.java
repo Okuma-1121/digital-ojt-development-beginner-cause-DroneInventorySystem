@@ -36,6 +36,18 @@ public class SearchParamsLimits {
 	//管理者名の最大文字数
 	public static final int MANAGER_NAME_MAX_LENGTH = 20;
 	
+	//最大保管容量（m³）の最小数
+	public static final int MIN_STORAGE_CAPACITY = 1;
+	
+	//最大保管容量（m³）の最大数
+	public static final int MAX_STORAGE_CAPACITY = 9999;
+	
+	//現在保管容量（m³）の最小数
+	public static final int MIN__CURRENT_STORAGE_CAPACITY = 0;
+	
+	//備考の最大文字数
+	public static final int NOTES_MAX_LENGTH = 100;
+	
 	// 郵便番号のフォーマット
 	public static final String POST_CODE_FORMAT = "^[0-9]{3}-[0-9]{4}$";
 	

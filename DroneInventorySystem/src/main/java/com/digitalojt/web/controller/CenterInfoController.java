@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.digitalojt.web.consts.CompletedMessage;
 import com.digitalojt.web.consts.Region;
@@ -62,6 +63,10 @@ public class CenterInfoController {
 		// 都道府県プルダウン情報をセット
 		model.addAttribute("regions", regions);
 
+		// フラッシュ属性から完了メッセージを取得し、モデルに追加
+	    String completedMsg = (String) model.asMap().get("completedMsg");
+	    model.addAttribute("completedMsg", completedMsg);
+	    
 		return "admin/centerInfo/index";
 	}
 
@@ -113,7 +118,7 @@ public class CenterInfoController {
 	 * @param model
 	 * @return
 	 */
-	@PostMapping(UrlConsts.CENTER_INFO_REGISTER)
+	@GetMapping(UrlConsts.CENTER_INFO_REGISTER)
 	public String register(Model model) {
 		return "admin/centerInfo/register";
 	}
@@ -127,7 +132,7 @@ public class CenterInfoController {
 	 * @return
 	 */
 	@PostMapping(UrlConsts.CENTER_INFO_REGISTRATION_COMPLETED)
-	public String registrationCompleted(Model model, @Valid RegisterCenterInfoForm registerForm, CenterInfoForm form,BindingResult bindingResult) {
+	public String register(Model model, @Valid RegisterCenterInfoForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 
@@ -138,26 +143,37 @@ public class CenterInfoController {
 			String errorMsg = MessageManager.getMessage(messageSource,
 					bindingResult.getGlobalError().getDefaultMessage());
 			model.addAttribute("errorMsg", errorMsg);
+
+//			// 項目ごとにエラーメッセージを表示する  
+//	            bindingResult.getFieldErrors().forEach(fieldError -> {
+//	                String field = fieldError.getField();
+//	                String errorMessage =MessageManager.getMessage(messageSource, fieldError.getDefaultMessage());
+//	                model.addAttribute(field + "ErrorMsg", errorMessage);
+//	            });
+	        
 			
 			return "admin/centerInfo/register";
 		}
 		
-		// 登録完了メッセージをプロパティファイルから取得
-		String completedMsg = messageSource.getMessage(CompletedMessage.REGISTRATION_COMPLETED, null, Locale.getDefault());
-		model.addAttribute("completedMsg", completedMsg);
+		//// 在庫センター情報を登録するためのCenterInfoオブジェクトを作成
+		CenterInfo centerInfo = new CenterInfo();
+		centerInfo.setCenterName(form.getCenterName());
+		centerInfo.setPostCode(form.getPostCode());
+		centerInfo.setAddress(form.getAddress());
+		centerInfo.setPhoneNumber(form.getPhoneNumber());
+		centerInfo.setManagerName(form.getManagerName());
+		centerInfo.setOperationalStatus(form.getOperationalStatus());
+		centerInfo.setMaxStorageCapacity(form.getMaxStorageCapacity());
+		centerInfo.setCurrentStorageCapacity(form.getCurrentStorageCapacity());
+		// 在庫センター情報を登録
+		centerInfoService.registerCenterInfo(centerInfo);
+
 		
-		// 在庫センター情報画面に表示するデータを取得
-		List<CenterInfo> centerInfoList = centerInfoService.getCenterInfoData(form.getCenterName(), form.getRegion());
+		// 登録完了メッセージをフラッシュ属性として設定
+        String completedMsg = messageSource.getMessage(CompletedMessage.REGISTRATION_COMPLETED, null, Locale.getDefault());
+        redirectAttributes.addFlashAttribute("completedMsg", completedMsg);
 
-		// 画面表示用に商品情報リストをセット
-		model.addAttribute("centerInfoList", centerInfoList);
-
-		// 都道府県Enumをリストに変換
-		List<Region> regions = Arrays.asList(Region.values());
-
-		// 都道府県プルダウン情報をセット
-		model.addAttribute("regions", regions);
-
-		return "admin/centerInfo/index";
+		// 初期表示にリダイレクト
+	    return "redirect:" + UrlConsts.CENTER_INFO;
 	}
 }

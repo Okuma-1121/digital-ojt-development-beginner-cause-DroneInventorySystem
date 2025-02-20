@@ -16,12 +16,8 @@
 
 		<!-- 登録フォーム -->
 
-		<div
-			class="d-flex justify-content-center align-items-center">
+		<div class="d-flex justify-content-center align-items-center">
 			<div class="card shadow-lg" style="width: 70%; max-width: 800px">
-				<!-- 				        <div class="card-header bg-success text-white py-2"> -->
-				<!-- 				          <h6 class="mb-0">在庫センター情報 登録</h6> -->
-				<!-- 				        </div> -->
 				<div class="card-body py-2">
 					<form class="small" method="post"
 						th:action="@{'/admin/centerInfo/registrationCompleted'}"
@@ -34,24 +30,30 @@
 							<div th:if="${errorMsg != null}" class="text-danger">
 								<p th:text="${errorMsg}"></p>
 							</div>
-<!-- ※必須項目は全て入力してください。 -->
-<!-- ※不正な入力を検知しました。 -->
 						</div>
 
 						<!-- 在庫センター名 -->
 						<div class="mb-2" id="custum-form">
 							<label for="centerName" class="form-label">在庫センター名<span
 								class="text-danger">*</span></label> <input type="text"
-								class="form-control form-control-sm" id="centerName" name="centerName"
-								placeholder="○○物流センター" required />
+								class="form-control form-control-sm" id="centerName"
+								name="centerName" placeholder="○○物流センター" required />
 						</div>
+
+<!-- 項目ごとにエラーメッセージを表示する  -->
+<!-- 						<div class="mb-2" id="custum-form" -->
+<!-- 							th:if="${centerNameErrorMsg != null}"> -->
+<!-- 							<label class="form-label"></label> -->
+<!-- 							<p th:text="${centerNameErrorMsg}" class="text-danger"></p> -->
+<!-- 						</div> -->
+						
 
 						<!-- 郵便番号 -->
 						<div class="mb-2" id="custum-form">
 							<label for="postCode" class="form-label">郵便番号<span
 								class="text-danger">*</span></label> <input type="text"
-								class="form-control form-control-sm" id="postCode" name="postCode"
-								placeholder="000-0000" required />
+								class="form-control form-control-sm" id="postCode"
+								name="postCode" placeholder="000-0000" required />
 						</div>
 
 						<!-- 住所 -->
@@ -66,16 +68,16 @@
 						<div class="mb-2" id="custum-form">
 							<label for="phoneNumber" class="form-label">電話番号<span
 								class="text-danger">*</span></label> <input type="text"
-								class="form-control form-control-sm" id="phoneNumber" name="phoneNumber"
-								placeholder="000-0000-0000" required />
+								class="form-control form-control-sm" id="phoneNumber"
+								name="phoneNumber" placeholder="000-0000-0000" required />
 						</div>
 
 						<!-- 管理者名 -->
 						<div class="mb-2" id="custum-form">
 							<label for="managerName" class="form-label">管理者名<span
 								class="text-danger">*</span></label> <input type="text"
-								class="form-control form-control-sm" id="managerName" name="managerName"
-								placeholder="田中太郎" required />
+								class="form-control form-control-sm" id="managerName"
+								name="managerName" placeholder="田中太郎" required />
 						</div>
 
 						<!-- 稼働状況ステータス -->
@@ -84,15 +86,17 @@
 								class="text-danger">*</span></label>
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" value="0"
-									id="operationalStatusActive" name="operationalStatus" required checked/> <label
-									class="form-check-label" for="operationalStatusActive">稼働中</label>
+									id="operationalStatusActive" name="operationalStatus" required
+									checked /> <label class="form-check-label"
+									for="operationalStatusActive">稼働中</label>
 							</div>
 							<div class="form-check form-check-inline">
 								<input class="form-check-input" type="radio" value="1"
-									id="operationalStatusInactive" name="operationalStatus" required /> <label
-									class="form-check-label" for="operationalStatusInactive">稼働停止</label>
+									id="operationalStatusInactive" name="operationalStatus"
+									required /> <label class="form-check-label"
+									for="operationalStatusInactive">稼働停止</label>
 							</div>
-							
+
 						</div>
 
 						<!-- 最大保管容量 -->
@@ -100,8 +104,17 @@
 						<div class="mb-2" id="custum-form">
 							<label for="maxStorageCapacity" class="form-label">最大保管容量（m³）<span
 								class="text-danger">*</span></label> <input type="number"
-								class="form-control form-control-sm" id="maxStorageCapacity" name="maxStorageCapacity"
-								placeholder="500" required />
+								class="form-control form-control-sm" id="maxStorageCapacity"
+								name="maxStorageCapacity" placeholder="500" required />
+
+
+
+							<div th:if="${maxStorageCapacityerrorMsg != null}"
+								class="text-danger">
+								<p th:text="${maxStorageCapacityerrorMsg}"></p>
+							</div>
+
+
 						</div>
 
 						<!-- 現在保管容量 -->
@@ -110,15 +123,15 @@
 						<div class="mb-2" id="custum-form">
 							<label for="currentStorageCapacity" class="form-label">現在保管容量（m³）<span
 								class="text-danger">*</span></label> <input type="number"
-								class="form-control form-control-sm" id="currentStorageCapacity" name="currentStorageCapacity"
-								placeholder="250" required />
+								class="form-control form-control-sm" id="currentStorageCapacity"
+								name="currentStorageCapacity" placeholder="250" required />
 						</div>
 
 						<!-- 備考 -->
 						<div class="mb-2" id="custum-form">
 							<label for="notes" class="form-label">備考</label>
-							<textarea class="form-control form-control-sm" id="notes" name="notes"
-								rows="2"></textarea>
+							<textarea class="form-control form-control-sm" id="notes"
+								name="notes" rows="2"></textarea>
 						</div>
 
 						<!-- ボタン -->

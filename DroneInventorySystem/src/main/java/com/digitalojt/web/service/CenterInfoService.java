@@ -3,6 +3,7 @@ package com.digitalojt.web.service;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.digitalojt.web.entity.CenterInfo;
 import com.digitalojt.web.repository.CenterInfoRepository;
@@ -43,4 +44,14 @@ public class CenterInfoService {
 	public List<CenterInfo> getCenterInfoData(String centerName, String region) {
 		return repository.findByCenterNameAndRegionAndStorageCapacity(centerName, region);
 	}
+	
+	/**
+     * 在庫センター情報を登録
+     * 
+     * @param centerInfo
+     */
+    @Transactional
+    public void registerCenterInfo(CenterInfo centerInfo) {
+        repository.save(centerInfo);
+    }
 }

@@ -56,12 +56,12 @@ public class StockListController extends AbstractController {
 		model.addAttribute("stockInfoList", stockInfoList);
 
 		// プルダウン用の分類一覧情報をセット
-		getCategoryInfoList(model);
+		setCategoryInfoList(model);
 
 		// 検索範囲の条件(以上・以下）プルダウン情報をセット
 		getRangeTypes(model);
 
-		return "admin/stockList/index";
+		return UrlConsts.STOCK_LIST_INDEX;
 	}
 
 	/**	
@@ -83,12 +83,12 @@ public class StockListController extends AbstractController {
 			model.addAttribute("errorMsg", errorMsg);
 
 			// プルダウン用の分類一覧情報をセット
-			getCategoryInfoList(model);
+			setCategoryInfoList(model);
 
 			// 検索範囲の条件(以上・以下）プルダウン情報をセット
 			getRangeTypes(model);
 
-			return "admin/stockList/index";
+			return UrlConsts.STOCK_LIST_INDEX;
 		}
 
 		// 在庫一覧画面に表示するデータを取得
@@ -99,12 +99,12 @@ public class StockListController extends AbstractController {
 		model.addAttribute("stockInfoList", stockInfoList);
 
 		// プルダウン用の分類一覧情報をセット
-		getCategoryInfoList(model);
+		setCategoryInfoList(model);
 
 		// 検索範囲の条件(以上・以下）プルダウン情報をセット
 		getRangeTypes(model);
 
-		return "admin/stockList/index";
+		return UrlConsts.STOCK_LIST_INDEX;
 
 	}
 
@@ -114,7 +114,7 @@ public class StockListController extends AbstractController {
 	 * @param model
 	 * 
 	 */
-	public void getCategoryInfoList(Model model) {
+	public void setCategoryInfoList(Model model) {
 
 		// プルダウン用に分類名を取得しリストに変換
 		List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();

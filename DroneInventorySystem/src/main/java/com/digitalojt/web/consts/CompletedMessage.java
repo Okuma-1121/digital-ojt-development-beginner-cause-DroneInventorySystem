@@ -8,5 +8,5 @@ package com.digitalojt.web.consts;
 public class CompletedMessage {
 
 	// 新規登録完了のメッセージ
-		public static final String  REGISTRATION_COMPLETED = "registration.completed";
+	public static final String  REGISTRATION_COMPLETED = "registration.completed";
 }

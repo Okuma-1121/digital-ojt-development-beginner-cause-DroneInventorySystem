@@ -1,21 +1,26 @@
 package com.digitalojt.web.consts;
+
 /**
- * 検索範囲の条件(以上・以下） Enumクラス
+ * 稼働ステータス Enumクラス
  * 
  * @author Okuma
  */
 public enum OperationalStatus {
 
-	ACTIVE(0),
+	/**
+	 * 0：稼働中
+	 * 1：稼働停止
+	 */
+	ACTIVE(0), 
 	INACTIVE(1);
 
-    private final int type;
+	private final int type;
 
-    OperationalStatus(int type) {
-        this.type = type;
-    }
+	OperationalStatus(int type) {
+		this.type = type;
+	}
 
-    public int getType() {
-        return type;
-    }
+	public int getType() {
+		return type;
+	}
 }

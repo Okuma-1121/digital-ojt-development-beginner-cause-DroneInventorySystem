@@ -2,7 +2,7 @@ package com.digitalojt.web.validation;
 
 import com.digitalojt.web.consts.ErrorMessage;
 import com.digitalojt.web.consts.OperationalStatus;
-import com.digitalojt.web.consts.SearchParamsLimits;
+import com.digitalojt.web.consts.ParamsLimits;
 import com.digitalojt.web.form.RegisterCenterInfoForm;
 import com.digitalojt.web.util.ParmCheckUtil;
 
@@ -40,14 +40,14 @@ public class RegisterCenterInfoFormValidatorImpl
 		
 
 		// 文字数チェック
-		if (form.getCenterName().length() > SearchParamsLimits.CENTER_INFO_MAX_LENGTH) {
+		if (form.getCenterName().length() > ParamsLimits.CENTER_INFO_MAX_LENGTH) {
 			setErrorMessage(context, ErrorMessage.CENTER_NAME_LENGTH_ERROR_MESSAGE);
 			return false;
 		}
 
 		// 郵便番号のチェック
 		// 正規表現によるフォーマットチェック
-		if (!form.getPostCode().matches(SearchParamsLimits.POST_CODE_FORMAT)) {
+		if (!form.getPostCode().matches(ParamsLimits.POST_CODE_FORMAT)) {
 			setErrorMessage(context, ErrorMessage.INVALID_POST_CODE_ERROR_MESSAGE);
 			return false;
 		}
@@ -60,7 +60,7 @@ public class RegisterCenterInfoFormValidatorImpl
 		}
 
 		// 文字数チェック
-		if (form.getAddress().length() > SearchParamsLimits.ADDRESS_MAX_LENGTH) {
+		if (form.getAddress().length() > ParamsLimits.ADDRESS_MAX_LENGTH) {
 			setErrorMessage(context, ErrorMessage.ADDRESS_LENGTH_ERROR_MESSAGE);
 			return false;
 		}
@@ -68,7 +68,7 @@ public class RegisterCenterInfoFormValidatorImpl
 		// 電話番号のチェック
 		// 正規表現によるフォーマットチェック
 		 
-		if (!form.getPhoneNumber().matches(SearchParamsLimits.PHONE_NUMBER_FORMAT)) {
+		if (!form.getPhoneNumber().matches(ParamsLimits.PHONE_NUMBER_FORMAT)) {
 			setErrorMessage(context, ErrorMessage.INVALID_PHONE_NUMBER_ERROR_MESSAGE);
 			return false;
 		}
@@ -81,7 +81,7 @@ public class RegisterCenterInfoFormValidatorImpl
 		}
 
 		// 文字数チェック
-		if (form.getManagerName().length() > SearchParamsLimits.MANAGER_NAME_MAX_LENGTH) {
+		if (form.getManagerName().length() > ParamsLimits.MANAGER_NAME_MAX_LENGTH) {
 			setErrorMessage(context, ErrorMessage.MANAGER_NAME_LENGTH_ERROR_MESSAGE);
 			return false;
 		}
@@ -94,14 +94,14 @@ public class RegisterCenterInfoFormValidatorImpl
 		}
 
 		// 最大保管容量（m³）のチェック
-		if (Integer.parseInt(form.getMaxStorageCapacity()) < SearchParamsLimits.MIN_STORAGE_CAPACITY
-				|| Integer.parseInt(form.getMaxStorageCapacity()) > SearchParamsLimits.MAX_STORAGE_CAPACITY) {
+		if (Integer.parseInt(form.getMaxStorageCapacity()) < ParamsLimits.MIN_STORAGE_CAPACITY
+				|| Integer.parseInt(form.getMaxStorageCapacity()) > ParamsLimits.MAX_STORAGE_CAPACITY) {
 			setErrorMessage(context, ErrorMessage.INVALID_MAX_STORAGE_CAPACITY_ERROR_MESSAGE);
 			return false;
 		}
 
 		// 現在保管容量（m³）のチェック
-		if (Integer.parseInt(form.getCurrentStorageCapacity()) < SearchParamsLimits.MIN__CURRENT_STORAGE_CAPACITY 
+		if (Integer.parseInt(form.getCurrentStorageCapacity()) < ParamsLimits.MIN__CURRENT_STORAGE_CAPACITY 
 				|| Integer.parseInt(form.getCurrentStorageCapacity()) > Integer.parseInt(form.getMaxStorageCapacity())) {
 			setErrorMessage(context, ErrorMessage.INVALID_CURRENT_STORAGE_CAPACITY_ERROR_MESSAGE);
 			return false;
@@ -115,7 +115,7 @@ public class RegisterCenterInfoFormValidatorImpl
 		}
 
 		// 文字数チェック
-		if (form.getNotes().length() > SearchParamsLimits.NOTES_MAX_LENGTH) {
+		if (form.getNotes().length() > ParamsLimits.NOTES_MAX_LENGTH) {
 			setErrorMessage(context, ErrorMessage.NOTES_LENGTH_ERROR_MESSAGE);
 			return false;
 		}

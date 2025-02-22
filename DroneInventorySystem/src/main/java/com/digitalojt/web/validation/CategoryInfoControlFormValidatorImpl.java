@@ -3,7 +3,7 @@ package com.digitalojt.web.validation;
 import org.thymeleaf.util.StringUtils;
 
 import com.digitalojt.web.consts.ErrorMessage;
-import com.digitalojt.web.consts.SearchParamsLimits;
+import com.digitalojt.web.consts.ParamsLimits;
 import com.digitalojt.web.form.CategoryInfoControlForm;
 import com.digitalojt.web.util.ParmCheckUtil;
 
@@ -15,7 +15,8 @@ import jakarta.validation.ConstraintValidatorContext;
  * 
  * @author Okuma
  */
-public class CategoryInfoControlFormValidatorImpl implements ConstraintValidator<CategoryInfoControlFormValidator, CategoryInfoControlForm>  {
+public class CategoryInfoControlFormValidatorImpl
+		implements ConstraintValidator<CategoryInfoControlFormValidator, CategoryInfoControlForm> {
 
 	/**
 	 * バリデーションチェック
@@ -24,7 +25,7 @@ public class CategoryInfoControlFormValidatorImpl implements ConstraintValidator
 	public boolean isValid(CategoryInfoControlForm form, ConstraintValidatorContext context) {
 
 		// 最大文字数
-		int MAX_LENGTH = SearchParamsLimits.CATEGORY_MAX_LENGTH;
+		int MAX_LENGTH = ParamsLimits.CATEGORY_MAX_LENGTH;
 
 		boolean allFieldsEmpty = StringUtils.isEmpty(form.getCategory());
 

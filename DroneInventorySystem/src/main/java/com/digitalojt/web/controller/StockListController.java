@@ -59,7 +59,7 @@ public class StockListController extends AbstractController {
 		setCategoryInfoList(model);
 
 		// 検索範囲の条件(以上・以下）プルダウン情報をセット
-		getRangeTypes(model);
+		setRangeTypes(model);
 
 		return UrlConsts.STOCK_LIST_INDEX;
 	}
@@ -86,7 +86,7 @@ public class StockListController extends AbstractController {
 			setCategoryInfoList(model);
 
 			// 検索範囲の条件(以上・以下）プルダウン情報をセット
-			getRangeTypes(model);
+			setRangeTypes(model);
 
 			return UrlConsts.STOCK_LIST_INDEX;
 		}
@@ -102,7 +102,7 @@ public class StockListController extends AbstractController {
 		setCategoryInfoList(model);
 
 		// 検索範囲の条件(以上・以下）プルダウン情報をセット
-		getRangeTypes(model);
+		setRangeTypes(model);
 
 		return UrlConsts.STOCK_LIST_INDEX;
 
@@ -131,7 +131,7 @@ public class StockListController extends AbstractController {
 	 * @param model
 	 * 
 	 */
-	public void getRangeTypes(Model model) {
+	public void setRangeTypes(Model model) {
 
 		// 検索範囲の条件(以上・以下）Enumをリストに変換
 		List<RangeType> rangeTypes = Arrays.asList(RangeType.values());

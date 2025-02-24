@@ -41,7 +41,7 @@ public class StockInfoService {
 	 * @return 
 	 * 
 	 */
-	public List<StockInfo> getStockInfoData(Integer categoryId, String name, Integer amount, String range) {
-		return repository.findByCategoryInfoCategoryIdAndNameAndAmount(categoryId, name, amount, range);
+	public List<StockInfo> getStockInfoData(Integer categoryId, String name, String amount, String range) {
+		return repository.findByCategoryInfoCategoryIdAndNameAndAmount(categoryId, name, Integer.valueOf(amount), range);
 	}
 }

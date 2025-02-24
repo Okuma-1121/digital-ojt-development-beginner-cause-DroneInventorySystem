@@ -27,8 +27,8 @@ public class StockInfoForm {
 	/**
 	 * 個数
 	 */
-	private Integer amount;
-
+	private String amount;
+	
 	/**
 	 * 検索範囲の条件(以上・以下）
 	 */

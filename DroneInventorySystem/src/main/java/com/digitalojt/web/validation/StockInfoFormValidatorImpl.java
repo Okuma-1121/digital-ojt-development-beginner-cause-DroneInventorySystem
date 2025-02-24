@@ -52,9 +52,15 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 
 		//個数のチェック
 		if (form.getAmount() != null) {
-
+			
+			//数値かチェック
+			if (!isNumeric(form.getAmount())){
+				setErrorMessage(context, ErrorMessage.STOCK_NUM_INPUT_ERROR_MESSAGE);
+				return false;
+			}
+			
 			//最小数以上かつ最大数以下かチェック
-			if (ParamsLimits.STOCK_MIN_NUM > form.getAmount() || ParamsLimits.STOCK_MAX_NUM < form.getAmount()) {
+			if (ParamsLimits.STOCK_MIN_NUM > Integer.valueOf(form.getAmount()) || ParamsLimits.STOCK_MAX_NUM < Integer.valueOf(form.getAmount())) {
 				setErrorMessage(context, ErrorMessage.STOCK_NUM_INPUT_ERROR_MESSAGE);
 				return false;
 			}
@@ -99,6 +105,24 @@ public class StockInfoFormValidatorImpl implements ConstraintValidator<StockInfo
 	 */
 	private boolean areAllFieldsEmpty(StockInfoForm form) {
 		return form.getCategoryId() == null && StringUtils.isEmpty(form.getName()) && form.getAmount() == null;
+	}
+	
+	/**	
+	 * 数値かどうかをチェック
+	 * 
+	 * @param str
+	 * @return boolean
+	 */
+	public boolean isNumeric(String str) {
+	    if (str == null || str.isEmpty()) {
+	        return false;
+	    }
+	    try {
+	        Integer.parseInt(str);
+	        return true;
+	    } catch (NumberFormatException e) {
+	        return false;
+	    }
 	}
 
 	/**	

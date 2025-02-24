@@ -26,11 +26,12 @@ public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 	List<StockInfo> findAllActive();
 
 	/**
-	 * 個数の範囲条件が「以上」の場合、引数に合致する在庫情報を取得
+	 * 引数に合致する在庫情報を取得
 	 * 
 	 * @param categoryId
-	 * @param name 在庫名
-	 * @param amount 
+	 * @param name   在庫名
+	 * @param amount 個数
+	 * @param range  以上か以下
 	 * @return paramで検索した結果
 	 */
 

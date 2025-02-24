@@ -55,19 +55,13 @@ public class StockListController extends AbstractController {
 		// 画面表示用に情報リストをセット
 		model.addAttribute("stockInfoList", stockInfoList);
 
-		// プルダウン用に分類名を取得しリストに変換
-		List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoDataActive();
-
 		// プルダウン用の分類一覧情報をセット
-		model.addAttribute("categoryInfoList", categoryInfoList);
+		setCategoryInfoList(model);
 
-		// 検索範囲の条件Enumをリストに変換
-		List<RangeType> rangeTypes = Arrays.asList(RangeType.values());
+		// 検索範囲の条件(以上・以下）プルダウン情報をセット
+		setRangeTypes(model);
 
-		// 検索範囲の条件プルダウン情報をセット
-		model.addAttribute("rangeType", rangeTypes);
-
-		return "admin/stockList/index";
+		return UrlConsts.STOCK_LIST_INDEX;
 	}
 
 	/**	
@@ -88,19 +82,13 @@ public class StockListController extends AbstractController {
 					bindingResult.getGlobalError().getDefaultMessage());
 			model.addAttribute("errorMsg", errorMsg);
 
-			// プルダウン用に分類名を取得しリストに変換
-			List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();
-
 			// プルダウン用の分類一覧情報をセット
-			model.addAttribute("categoryInfoList", categoryInfoList);
+			setCategoryInfoList(model);
 
-			// 検索範囲の条件Enumをリストに変換
-			List<RangeType> rangeTypes = Arrays.asList(RangeType.values());
+			// 検索範囲の条件(以上・以下）プルダウン情報をセット
+			setRangeTypes(model);
 
-			// 検索範囲の条件プルダウン情報をセット
-			model.addAttribute("rangeType", rangeTypes);
-
-			return "admin/stockList/index";
+			return UrlConsts.STOCK_LIST_INDEX;
 		}
 
 		// 在庫一覧画面に表示するデータを取得
@@ -110,18 +98,46 @@ public class StockListController extends AbstractController {
 		// 画面表示用に商品情報リストをセット
 		model.addAttribute("stockInfoList", stockInfoList);
 
+		// プルダウン用の分類一覧情報をセット
+		setCategoryInfoList(model);
+
+		// 検索範囲の条件(以上・以下）プルダウン情報をセット
+		setRangeTypes(model);
+
+		return UrlConsts.STOCK_LIST_INDEX;
+
+	}
+
+	/**
+	 * 分類名プルダウン情報をセット
+	 * 
+	 * @param model
+	 * 
+	 */
+	public void setCategoryInfoList(Model model) {
+
 		// プルダウン用に分類名を取得しリストに変換
 		List<CategoryInfo> categoryInfoList = categoryInfoService.getCategoryInfoData();
 
 		// プルダウン用の分類一覧情報をセット
 		model.addAttribute("categoryInfoList", categoryInfoList);
 
-		// 検索範囲の条件Enumをリストに変換
+	}
+
+	/**
+	 * 検索範囲の条件(以上・以下）プルダウン情報を
+	 * 検索範囲の条件(以上・以下）Enumから取得しセット
+	 * 
+	 * @param model
+	 * 
+	 */
+	public void setRangeTypes(Model model) {
+
+		// 検索範囲の条件(以上・以下）Enumをリストに変換
 		List<RangeType> rangeTypes = Arrays.asList(RangeType.values());
 
-		// 検索範囲の条件プルダウン情報をセット
+		// 検索範囲の条件(以上・以下）プルダウン情報をセット
 		model.addAttribute("rangeType", rangeTypes);
 
-		return "admin/stockList/index";
 	}
 }

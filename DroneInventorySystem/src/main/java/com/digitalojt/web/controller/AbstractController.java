@@ -6,6 +6,6 @@ package com.digitalojt.web.controller;
  * @author Okuma
  *
  */
-public class AbstractController {
+public abstract class AbstractController {
 
 }

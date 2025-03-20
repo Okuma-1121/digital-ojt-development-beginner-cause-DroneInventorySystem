@@ -8,7 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 /**
  * Bean定義クラス
  *
- * @author Okuma
+ * @author your name
  * 
  */
 @Configuration

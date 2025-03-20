@@ -1,0 +1,5 @@
+package com.digitalojt.web.validation;
+
+public class CategoryInfoControlFormValidatorImpl {
+
+}

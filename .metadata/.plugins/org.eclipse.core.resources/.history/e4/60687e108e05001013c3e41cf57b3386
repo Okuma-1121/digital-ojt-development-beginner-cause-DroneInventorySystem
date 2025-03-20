@@ -1,0 +1,17 @@
+package com.digitalojt.web.validation;
+
+import com.digitalojt.web.form.CenterInfoForm;
+import com.digitalojt.web.form.RegisterCenterInfoForm;
+
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
+
+public class CategoryInfoControlFormValidatorImpl implements ConstraintValidator<CategoryInfoFormValidator, CategoryInfoForm> {
+
+	/**
+	 * バリデーションチェック
+	 */
+	@Override
+	public boolean isValid(CenterInfoForm form, ConstraintValidatorContext context) {
+
+}

@@ -1,8 +1,8 @@
 /target/
 /bin/
-.metadata/
 DroneInventorySystem/.classpath
 DroneInventorySystem/.gitignore
 DroneInventorySystem/.project
 DroneInventorySystem/.settings/
 Servers/
+.metadata/

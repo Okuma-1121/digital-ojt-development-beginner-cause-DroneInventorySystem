@@ -20,6 +20,6 @@ public class MessageManager {
 	 * @return 
 	 */
 	public static String getMessage(MessageSource messageSource, String key, Object... params) {
-		return messageSource.getMessage(key,  params, Locale.JAPAN);
+		return messageSource.getMessage(key, params, Locale.JAPAN);
 	}
 }

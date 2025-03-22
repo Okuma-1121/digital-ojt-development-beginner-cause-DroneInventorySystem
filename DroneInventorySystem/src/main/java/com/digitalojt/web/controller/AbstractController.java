@@ -6,6 +6,6 @@ package com.digitalojt.web.controller;
  * @author your name
  *
  */
-public class AbstractController {
+public abstract class AbstractController {
 
 }

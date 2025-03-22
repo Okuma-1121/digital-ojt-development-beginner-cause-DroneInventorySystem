@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 /**
  * WebSecurityConfig
  *
- * @author your name
+ * @author Okuma
  * 
  */
 @Configuration

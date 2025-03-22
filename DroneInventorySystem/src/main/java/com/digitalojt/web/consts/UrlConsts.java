@@ -3,7 +3,8 @@ package com.digitalojt.web.consts;
 /**
  * URL定数クラス
  *
- * @author your name
+ * @author Okuma
+ * 
  * 
  */
 public class UrlConsts {
@@ -43,5 +44,5 @@ public class UrlConsts {
 
 	// 認証不要画面
 	public static final String[] NO_AUTHENTICATION = { LOGIN, AUTHENTICATE };
-	
+
 }

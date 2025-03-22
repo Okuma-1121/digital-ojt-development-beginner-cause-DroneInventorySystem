@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>InvenTrack</title>
+</head>
+
+<body>
+	<div class="card shadow mb-4">
+
+		<div class="card-header py-3">
+			<h6 class="m-0 font-weight-bold text-primary">分類情報管理</h6>
+		</div>
+
+		<!-- CSS共通ファイル化のためコメント化
+		<div class="card-body" style="width: 70%; margin: auto;"> -->
+		<div class="card-body" id="custom-card-body">
+
+			<!-- 検索フォーム -->
+			<div class="search-container">
+				<form class="form-inline" method="post"
+					th:action="@{'/admin/categoryInfoControl/search'}"
+					th:object="${CategoryInfoControlForm}">
+					<!-- CSS共通ファイル化のためコメント化
+					<label for="searchTerm" class="mr-3"
+						style="text-decoration: underline;">検索条件</label> -->
+					<label for="searchTerm" class="mr-3" id="custom-underline">検索条件</label>
+					<label for="searchTerm" class="mr-2">分類名</label>
+					<input type="text"id="searchTerm" name="category" class="form-control mr-3">
+
+					<button type="submit" class="btn btn-primary">検索</button>
+				</form>
+
+				<!-- エラーメッセージの表示 -->
+				<div th:if="${errorMsg != null}" class="text-danger">
+					<p th:text="${errorMsg}"></p>
+				</div>
+				<!-- DB情報取得エラー時のメッセージの表示 -->
+				<div th:if="${dbErrorMsg != null}" class="text-danger">
+					<p th:text="${dbErrorMsg}"></p>
+				</div>
+			</div>
+
+			<!-- 分類情報テーブル -->
+			<!-- CSS共通ファイル化のためコメント化
+			<div class="table-responsive" style="text-align: center;"> -->
+			<div class="table-responsive"  id="custom-text-center">
+				<table class="table table-bordered" id="dataTable">
+					<tbody>
+						<!--/* 
+						分類名取得を定数クラス→DB取得に変更のためコメント化
+						<tr th:each="item : ${categoryConsts}">
+						<td>[[${item.category}]]</td>
+						 */-->
+						<tr th:each="item : ${categoryInfoList}">
+							<td>[[${item.categoryName}]]</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

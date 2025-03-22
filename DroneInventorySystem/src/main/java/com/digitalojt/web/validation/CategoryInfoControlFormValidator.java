@@ -11,14 +11,14 @@ import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
 /**
- * 在庫センター情報画面のバリデーションチェック インターフェース
+ * 分類情報管理画面のバリデーションチェック インターフェース
  * 
  * @author Okuma
  */
-@Constraint(validatedBy = CenterInfoFormValidatorImpl.class)
+@Constraint(validatedBy = CategoryInfoControlFormValidatorImpl.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
-public @interface CenterInfoFormValidator {
+public @interface CategoryInfoControlFormValidator {
 
 	String message() default ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE;
 

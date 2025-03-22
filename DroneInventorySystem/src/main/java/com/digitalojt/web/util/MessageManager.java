@@ -1,3 +1,4 @@
+
 package com.digitalojt.web.util;
 
 import java.util.Locale;
@@ -7,7 +8,7 @@ import org.springframework.context.MessageSource;
 /**
  * メッセージ管理 共通クラス
  * 
- * @author your name
+ * @author Okuma
  */
 public class MessageManager {
 

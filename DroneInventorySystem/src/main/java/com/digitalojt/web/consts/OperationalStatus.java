@@ -4,18 +4,18 @@ package com.digitalojt.web.consts;
  * 
  * @author Okuma
  */
-public enum RangeType {
+public enum OperationalStatus {
 
-	OVER("以上"),
-	UNDER("以下");
+	ACTIVE(0),
+	INACTIVE(1);
 
-    private final String type;
+    private final int type;
 
-    RangeType(String type) {
+    OperationalStatus(int type) {
         this.type = type;
     }
 
-    public String getType() {
+    public int getType() {
         return type;
     }
 }

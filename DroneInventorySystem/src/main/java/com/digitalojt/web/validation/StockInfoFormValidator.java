@@ -10,12 +10,19 @@ import com.digitalojt.web.consts.ErrorMessage;
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 
-@Constraint(validatedBy = CenterInfoFormValidatorImpl.class)
+/**
+ * 在庫一覧画面のバリデーションチェック インターフェース
+ * 
+ * @author Okuma
+ */
+@Constraint(validatedBy = StockInfoFormValidatorImpl.class)
 @Target({ ElementType.TYPE })
 @Retention(RetentionPolicy.RUNTIME)
 public @interface StockInfoFormValidator {
 
 	String message() default ErrorMessage.ALL_FIELDS_EMPTY_ERROR_MESSAGE;
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+
+	Class<?>[] groups() default {};
+
+	Class<? extends Payload>[] payload() default {};
 }

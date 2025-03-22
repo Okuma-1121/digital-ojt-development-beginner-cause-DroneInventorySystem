@@ -3,7 +3,11 @@ package com.digitalojt.web.entity;
 import java.sql.Timestamp;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +15,7 @@ import lombok.Setter;
 /**
  * センター情報Entity
  * 
- * @author your name
+ * @author Okuma
  *
  */
 @Data
@@ -23,6 +27,7 @@ public class CenterInfo {
 	/**
 	 * センターID
 	 */
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int centerId;
 	
@@ -30,6 +35,12 @@ public class CenterInfo {
 	 * センター名
 	 */
 	private String centerName;
+	
+	/**
+	 * 郵便番号
+	 */
+	private String postCode;
+
 	
 	/**
 	 * 住所
@@ -62,6 +73,12 @@ public class CenterInfo {
 	private String currentStorageCapacity;
 	
 	/**
+	 *　備考
+	 */
+	private String notes;
+
+	
+	/**
 	 * 論理削除フラグ
 	 */
 	private String deleteFlag;
@@ -75,4 +92,28 @@ public class CenterInfo {
 	 * 登録日
 	 */
 	private Timestamp createDate;
+	
+
+
+	/**
+	 * 新規登録時に呼び出されるメソッド
+     * エンティティの作成日時および更新日時を設定し、
+     * 削除フラグのデフォルト値を設定
+	 */
+    @PrePersist
+    protected void onCreate() {
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        createDate = now;
+        updateDate = now;
+        deleteFlag = "0"; // デフォルト値を設定
+    }
+
+    /**
+     * 更新時に呼び出されるメソッド
+     * エンティティの更新日時を現在の日時に設定
+     */
+    @PreUpdate
+    protected void onUpdate() {
+        updateDate = new Timestamp(System.currentTimeMillis());
+    }
 }

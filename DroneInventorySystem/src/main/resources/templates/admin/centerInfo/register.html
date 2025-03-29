@@ -12,8 +12,6 @@
 			<h6 class="m-0 font-weight-bold text-primary">在庫センター情報 登録</h6>
 		</div>
 
-		<!-- 		<div class="card-body"> -->
-
 		<!-- 登録フォーム -->
 
 		<div class="d-flex justify-content-center align-items-center">
@@ -39,14 +37,6 @@
 								class="form-control form-control-sm" id="centerName"
 								name="centerName" placeholder="○○物流センター" required />
 						</div>
-
-<!-- 項目ごとにエラーメッセージを表示する  -->
-<!-- 						<div class="mb-2" id="custum-form" -->
-<!-- 							th:if="${centerNameErrorMsg != null}"> -->
-<!-- 							<label class="form-label"></label> -->
-<!-- 							<p th:text="${centerNameErrorMsg}" class="text-danger"></p> -->
-<!-- 						</div> -->
-						
 
 						<!-- 郵便番号 -->
 						<div class="mb-2" id="custum-form">
@@ -96,30 +86,17 @@
 									required /> <label class="form-check-label"
 									for="operationalStatusInactive">稼働停止</label>
 							</div>
-
 						</div>
 
 						<!-- 最大保管容量 -->
-						<!-- ※最大容量は数字で入力してください。 -->
 						<div class="mb-2" id="custum-form">
 							<label for="maxStorageCapacity" class="form-label">最大保管容量（m³）<span
 								class="text-danger">*</span></label> <input type="number"
 								class="form-control form-control-sm" id="maxStorageCapacity"
 								name="maxStorageCapacity" placeholder="500" required />
-
-
-
-							<div th:if="${maxStorageCapacityerrorMsg != null}"
-								class="text-danger">
-								<p th:text="${maxStorageCapacityerrorMsg}"></p>
-							</div>
-
-
 						</div>
 
 						<!-- 現在保管容量 -->
-						<!-- ※現在容量は数字で入力してください。 -->
-						<!-- ※現在容量は最大容量を上回る容量を登録できません。 -->
 						<div class="mb-2" id="custum-form">
 							<label for="currentStorageCapacity" class="form-label">現在保管容量（m³）<span
 								class="text-danger">*</span></label> <input type="number"
@@ -132,6 +109,11 @@
 							<label for="notes" class="form-label">備考</label>
 							<textarea class="form-control form-control-sm" id="notes"
 								name="notes" rows="2"></textarea>
+						</div>
+
+						<!-- 「＊」必須項目の説明 -->
+						<div class="mb-2" id="custum-form">
+							<span class="text-danger">*</span><span>の付いている項目は必須入力です。</span>
 						</div>
 
 						<!-- ボタン -->

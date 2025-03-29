@@ -31,13 +31,6 @@ public class RegisterCenterInfoFormValidatorImpl
 			setErrorMessage(context, ErrorMessage.INVALID_INPUT_ERROR_MESSAGE);
 			return false;
 		}
-		
-//		//項目ごとにエラーメッセージを表示する 
-//		 if (ParmCheckUtil.isParameterInvalid(form.getCenterName())) {
-//	            setErrorMessage(context, "centerName", ErrorMessage.INVALID_INPUT_ERROR_MESSAGE);
-//	            return false;
-//	     }
-		
 
 		// 文字数チェック
 		if (form.getCenterName().length() > ParamsLimits.CENTER_INFO_MAX_LENGTH) {
@@ -67,7 +60,7 @@ public class RegisterCenterInfoFormValidatorImpl
 
 		// 電話番号のチェック
 		// 正規表現によるフォーマットチェック
-		 
+
 		if (!form.getPhoneNumber().matches(ParamsLimits.PHONE_NUMBER_FORMAT)) {
 			setErrorMessage(context, ErrorMessage.INVALID_PHONE_NUMBER_ERROR_MESSAGE);
 			return false;
@@ -85,10 +78,10 @@ public class RegisterCenterInfoFormValidatorImpl
 			setErrorMessage(context, ErrorMessage.MANAGER_NAME_LENGTH_ERROR_MESSAGE);
 			return false;
 		}
-		    
+
 		// 稼働状況ステータスのチェック
-		if (form.getOperationalStatus() != OperationalStatus.ACTIVE.getType() && 
-			    form.getOperationalStatus() != OperationalStatus.INACTIVE.getType()) {
+		if (form.getOperationalStatus() != OperationalStatus.ACTIVE.getType() &&
+				form.getOperationalStatus() != OperationalStatus.INACTIVE.getType()) {
 			setErrorMessage(context, ErrorMessage.UNEXPECTED_INPUT_ERROR_MESSAGE);
 			return false;
 		}
@@ -101,9 +94,12 @@ public class RegisterCenterInfoFormValidatorImpl
 		}
 
 		// 現在保管容量（m³）のチェック
-		if (Integer.parseInt(form.getCurrentStorageCapacity()) < ParamsLimits.MIN__CURRENT_STORAGE_CAPACITY 
-				|| Integer.parseInt(form.getCurrentStorageCapacity()) > Integer.parseInt(form.getMaxStorageCapacity())) {
+		if (Integer.parseInt(form.getCurrentStorageCapacity()) < ParamsLimits.MIN__CURRENT_STORAGE_CAPACITY) {
 			setErrorMessage(context, ErrorMessage.INVALID_CURRENT_STORAGE_CAPACITY_ERROR_MESSAGE);
+			return false;
+		} else if (Integer.parseInt(form.getCurrentStorageCapacity()) > Integer
+				.parseInt(form.getMaxStorageCapacity())) {
+			setErrorMessage(context, ErrorMessage.INVALID_CURRENT_STORAGE_CAPACITY_OVER_ERROR_MESSAGE);
 			return false;
 		}
 
@@ -124,7 +120,6 @@ public class RegisterCenterInfoFormValidatorImpl
 		return true;
 	}
 
-
 	/**	
 	 * エラーメッセージを設定
 	 * 
@@ -138,21 +133,5 @@ public class RegisterCenterInfoFormValidatorImpl
 				.addConstraintViolation();
 
 	}
-	
-//	/**	
-//	 * エラーメッセージを設定（項目ごとにエラーメッセージを表示する ）
-//	 * 
-//	 * @param context
-//	 * @param errorMessage
-//	 * 
-//	 */
-//	 private void setErrorMessage(ConstraintValidatorContext context, String field, String errorMessage) {
-//	        context.disableDefaultConstraintViolation();
-//	        context.buildConstraintViolationWithTemplate(errorMessage)
-//	               .addPropertyNode(field)
-//	               .addConstraintViolation();
-//
-//	}
-	
 
 }

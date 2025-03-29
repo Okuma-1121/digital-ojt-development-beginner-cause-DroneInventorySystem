@@ -56,6 +56,9 @@ public class ErrorMessage {
 	// 現在保管容量（m³）に関するエラーメッセージ
 	public static final String INVALID_CURRENT_STORAGE_CAPACITY_ERROR_MESSAGE = "invalid.currentStorageCapacity.Input";
 
+	// 現在保管容量（m³）に関するエラーメッセージ
+	public static final String INVALID_CURRENT_STORAGE_CAPACITY_OVER_ERROR_MESSAGE = "invalid.currentStorageCapacity.over.Input";
+
 	// 文字超過に関するエラーメッセージ（備考）
 	public static final String NOTES_LENGTH_ERROR_MESSAGE = "notes.length.wrongInput";
 

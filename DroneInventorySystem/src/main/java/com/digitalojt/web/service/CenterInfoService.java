@@ -1,4 +1,5 @@
 package com.digitalojt.web.service;
+
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -45,12 +46,12 @@ public class CenterInfoService {
 	}
 
 	/**
-     * 在庫センター情報を登録
-     * 
-     * @param centerInfo
-     */
-    @Transactional
-    public void registerCenterInfo(CenterInfo centerInfo) {
-        repository.save(centerInfo);
-    }
+	 * 在庫センター情報を登録
+	 * 
+	 * @param centerInfo
+	 */
+	@Transactional(rollbackForClassName = { "Exception" })
+	public void registerCenterInfo(CenterInfo centerInfo) {
+		repository.save(centerInfo);
+	}
 }

@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.digitalojt.web.consts.CompletedMessage;
 import com.digitalojt.web.consts.Region;
+import com.digitalojt.web.consts.ResultMessage;
 import com.digitalojt.web.consts.UrlConsts;
 import com.digitalojt.web.entity.CenterInfo;
 import com.digitalojt.web.form.CenterInfoForm;
@@ -39,8 +39,6 @@ public class CenterInfoController {
 
 	/** メッセージソース */
 	private final MessageSource messageSource;
-	
-	
 
 	/**
 	 * 初期表示
@@ -64,10 +62,14 @@ public class CenterInfoController {
 		model.addAttribute("regions", regions);
 
 		// フラッシュ属性から完了メッセージを取得し、モデルに追加
-	    String completedMsg = (String) model.asMap().get("completedMsg");
-	    model.addAttribute("completedMsg", completedMsg);
-	    
-		return "admin/centerInfo/index";
+		String completedMsg = (String) model.asMap().get("completedMsg");
+		model.addAttribute("completedMsg", completedMsg);
+
+		// フラッシュ属性からエラーメッセージを取得し、モデルに追加
+		String errorMsg = (String) model.asMap().get("errorMsg");
+		model.addAttribute("errorMsg", errorMsg);
+
+		return UrlConsts.CENTER_INFO_INDEX;
 	}
 
 	/**
@@ -94,7 +96,7 @@ public class CenterInfoController {
 			// 都道府県プルダウン情報をセット
 			model.addAttribute("regions", regions);
 
-			return "admin/centerInfo/index";
+			return UrlConsts.CENTER_INFO_INDEX;
 		}
 
 		// 在庫センター情報画面に表示するデータを取得
@@ -109,7 +111,7 @@ public class CenterInfoController {
 		// 都道府県プルダウン情報をセット
 		model.addAttribute("regions", regions);
 
-		return "admin/centerInfo/index";
+		return UrlConsts.CENTER_INFO_INDEX;
 	}
 
 	/**
@@ -120,41 +122,36 @@ public class CenterInfoController {
 	 */
 	@GetMapping(UrlConsts.CENTER_INFO_REGISTER)
 	public String register(Model model) {
-		return "admin/centerInfo/register";
+
+		// フラッシュ属性からエラーメッセージを取得し、モデルに追加
+		String errorMsg = (String) model.asMap().get("errorMsg");
+		model.addAttribute("errorMsg", errorMsg);
+
+		return UrlConsts.CENTER_INFO_REGISTER;
 	}
 
 	/**
 	 * 登録結果表示
 	 * 
-	 * @param model
 	 * @param form
 	 * @param bindingResult
+	 * @param RedirectAttributes
 	 * @return
 	 */
 	@PostMapping(UrlConsts.CENTER_INFO_REGISTRATION_COMPLETED)
-	public String register(Model model, @Valid RegisterCenterInfoForm form, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+	public String register(@Valid RegisterCenterInfoForm form, BindingResult bindingResult,
+			RedirectAttributes redirectAttributes) {
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 
-//何項目のエラーか把握し、それによりエラーメッセージを入力する個所を変更する
-			
-			
-			// エラーメッセージをプロパティファイルから取得
+			// エラーメッセージをプロパティファイルから取得しフラッシュ属性として設定
 			String errorMsg = MessageManager.getMessage(messageSource,
 					bindingResult.getGlobalError().getDefaultMessage());
-			model.addAttribute("errorMsg", errorMsg);
+			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
 
-//			// 項目ごとにエラーメッセージを表示する  
-//	            bindingResult.getFieldErrors().forEach(fieldError -> {
-//	                String field = fieldError.getField();
-//	                String errorMessage =MessageManager.getMessage(messageSource, fieldError.getDefaultMessage());
-//	                model.addAttribute(field + "ErrorMsg", errorMessage);
-//	            });
-	        
-			
-			return "admin/centerInfo/register";
+			return "redirect:" + UrlConsts.CENTER_INFO_REGISTER;
 		}
-		
+
 		//// 在庫センター情報を登録するためのCenterInfoオブジェクトを作成
 		CenterInfo centerInfo = new CenterInfo();
 		centerInfo.setCenterName(form.getCenterName());
@@ -165,15 +162,26 @@ public class CenterInfoController {
 		centerInfo.setOperationalStatus(form.getOperationalStatus());
 		centerInfo.setMaxStorageCapacity(form.getMaxStorageCapacity());
 		centerInfo.setCurrentStorageCapacity(form.getCurrentStorageCapacity());
+		centerInfo.setNotes(form.getNotes());
 		// 在庫センター情報を登録
-		centerInfoService.registerCenterInfo(centerInfo);
+		try {
+			centerInfoService.registerCenterInfo(centerInfo);
+		} catch (Exception e) {
+			// エラーメッセージをフラッシュ属性として設定
+			String errorMsg = messageSource.getMessage(ResultMessage.REGISTRATION_ERROR, null,
+					Locale.getDefault());
+			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
 
-		
+			// 初期表示にリダイレクト
+			return "redirect:" + UrlConsts.CENTER_INFO;
+		}
+
 		// 登録完了メッセージをフラッシュ属性として設定
-        String completedMsg = messageSource.getMessage(CompletedMessage.REGISTRATION_COMPLETED, null, Locale.getDefault());
-        redirectAttributes.addFlashAttribute("completedMsg", completedMsg);
+		String completedMsg = messageSource.getMessage(ResultMessage.REGISTRATION_COMPLETED, null,
+				Locale.getDefault());
+		redirectAttributes.addFlashAttribute("completedMsg", completedMsg);
 
 		// 初期表示にリダイレクト
-	    return "redirect:" + UrlConsts.CENTER_INFO;
+		return "redirect:" + UrlConsts.CENTER_INFO;
 	}
 }

@@ -5,7 +5,7 @@
 <title>InvenTrack</title>
 </head>
 
- <body>
+<body>
 	<div class="card shadow mb-4">
 
 		<div class="card-header py-3">
@@ -13,7 +13,7 @@
 		</div>
 
 		<div class="card-body">
-			
+
 			<!-- 検索フォーム -->
 			<div class="search-container">
 				<form class="form-inline" method="post"
@@ -29,21 +29,21 @@
 						<option th:each="region : ${regions}" th:value="${region.name}"
 							th:text="${region.name}"></option>
 					</select>
-					
- 					<button type="submit" class="btn btn-primary">検索</button>
+
+					<button type="submit" class="btn btn-primary">検索</button>
 				</form>
 
 				<!-- エラーメッセージの表示 -->
 				<div th:if="${errorMsg != null}" class="text-danger">
 					<p th:text="${errorMsg}"></p>
 				</div>
-				
+
 				<!-- 登録完了メッセージ表示 -->
 				<div th:if="${completedMsg != null}" class="text-success">
 					<p th:text="${completedMsg}"></p>
 				</div>
 			</div>
- 			
+
 			<!-- 在庫センター情報テーブル -->
 			<div class="table-responsive">
 				<table class="table table-bordered" id="dataTable" width="100%"
@@ -69,9 +69,9 @@
 			<!-- 新規登録ボタン -->
 			<form class="form-inline" method="get"
 				th:action="@{'/admin/centerInfo/register'}">
-				<button type="submit" class="btn btn-primary custum-btn-new">新規登録</button>
+				<button type="submit" class="btn custum-btn-new">新規登録</button>
 			</form>
 		</div>
 	</div>
- </body>
+</body>
 </html>

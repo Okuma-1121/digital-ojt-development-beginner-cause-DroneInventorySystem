@@ -61,14 +61,6 @@ public class CenterInfoController {
 		// 都道府県プルダウン情報をセット
 		model.addAttribute("regions", regions);
 
-		// フラッシュ属性から完了メッセージを取得し、モデルに追加
-		String completedMsg = (String) model.asMap().get("completedMsg");
-		model.addAttribute("completedMsg", completedMsg);
-
-		// フラッシュ属性からエラーメッセージを取得し、モデルに追加
-		String errorMsg = (String) model.asMap().get("errorMsg");
-		model.addAttribute("errorMsg", errorMsg);
-
 		return UrlConsts.CENTER_INFO_INDEX;
 	}
 
@@ -77,6 +69,7 @@ public class CenterInfoController {
 	 * 
 	 * @param model
 	 * @param form
+	 * @param bindingResult
 	 * @return
 	 */
 	@PostMapping(UrlConsts.CENTER_INFO_SEARCH)
@@ -123,10 +116,6 @@ public class CenterInfoController {
 	@GetMapping(UrlConsts.CENTER_INFO_REGISTER)
 	public String register(Model model) {
 
-		// フラッシュ属性からエラーメッセージを取得し、モデルに追加
-		String errorMsg = (String) model.asMap().get("errorMsg");
-		model.addAttribute("errorMsg", errorMsg);
-
 		return UrlConsts.CENTER_INFO_REGISTER;
 	}
 
@@ -135,7 +124,7 @@ public class CenterInfoController {
 	 * 
 	 * @param form
 	 * @param bindingResult
-	 * @param RedirectAttributes
+	 * @param redirectAttributes
 	 * @return
 	 */
 	@PostMapping(UrlConsts.CENTER_INFO_REGISTRATION_COMPLETED)
@@ -152,20 +141,9 @@ public class CenterInfoController {
 			return "redirect:" + UrlConsts.CENTER_INFO_REGISTER;
 		}
 
-		//// 在庫センター情報を登録するためのCenterInfoオブジェクトを作成
-		CenterInfo centerInfo = new CenterInfo();
-		centerInfo.setCenterName(form.getCenterName());
-		centerInfo.setPostCode(form.getPostCode());
-		centerInfo.setAddress(form.getAddress());
-		centerInfo.setPhoneNumber(form.getPhoneNumber());
-		centerInfo.setManagerName(form.getManagerName());
-		centerInfo.setOperationalStatus(form.getOperationalStatus());
-		centerInfo.setMaxStorageCapacity(form.getMaxStorageCapacity());
-		centerInfo.setCurrentStorageCapacity(form.getCurrentStorageCapacity());
-		centerInfo.setNotes(form.getNotes());
 		// 在庫センター情報を登録
 		try {
-			centerInfoService.registerCenterInfo(centerInfo);
+			centerInfoService.registerCenterInfo(form);
 		} catch (Exception e) {
 			// エラーメッセージをフラッシュ属性として設定
 			String errorMsg = messageSource.getMessage(ResultMessage.REGISTRATION_ERROR, null,

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PostMapping"/>
+    <fullyQualifiedTypeName name="lombok.Data"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.consts.CategoryConsts"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="org.springframework.validation.BindingResult"/>
+    <fullyQualifiedTypeName name="jakarta.validation.Valid"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.form.CategoryInfoControlForm"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.util.MessageManager"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.consts.Limits"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.repository.CategoryInfoRepository"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.entity.CategoryInfo"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.PersistenceException"/>
+    <fullyQualifiedTypeName name="org.springframework.dao.DataAccessException"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.consts.ErrorMessage"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.entity.StockInfo"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.repository.StockInfoRepository"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.service.StockInfoService"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.ManyToOne"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.JoinColumn"/>
+    <fullyQualifiedTypeName name="org.springframework.context.MessageSource"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.form.StockInfoForm"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.util.ParmCheckUtil"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.consts.SearchParamsLimits"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.validation.StockInfoFormValidator"/>
+    <fullyQualifiedTypeName name="org.thymeleaf.util.StringUtils"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.consts.FilterType"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.validation.RegisterCenterInfoFormValidator"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.consts.CompletedMessage"/>
+    <fullyQualifiedTypeName name="java.util.Locale"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.form.RegisterCenterInfoForm"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.consts.OperationalStatus"/>
+    <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
+    <fullyQualifiedTypeName name="lombok.Builder"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.PrePersist"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.PreUpdate"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GenerationType"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.consts.RangeType"/>
+    <fullyQualifiedTypeName name="com.digitalojt.web.form.CenterInfoForm"/>
+</qualifiedTypeNameHistroy>

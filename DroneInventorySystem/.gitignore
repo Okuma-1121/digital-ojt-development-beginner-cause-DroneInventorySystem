@@ -1,0 +1,9 @@
+/target/
+/bin/
+DroneInventorySystem/.classpath
+DroneInventorySystem/.gitignore
+DroneInventorySystem/.project
+DroneInventorySystem/.settings/
+Servers/
+.metadata/
+application.properties

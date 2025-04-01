@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="http://www.thymeleaf.org"
+  th:replace="~{layout/template :: layout(~{::title},~{::body/content()})}"
+>
+  <head>
+    <title>InvenTrack</title>
+  </head>
+
+  <body>
+    <div class="card shadow mb-4">
+      <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">在庫一覧</h6>
+      </div>
+
+      <div class="card-body">
+      
+			<!-- 検索フォーム -->
+			<div class="search-container">
+				<form class="form-inline" method="post" 
+					th:action="@{'/admin/stockList/search'}" 
+					th:object="${StockInfoForm}">
+					<label for="searchTerm" class="mr-3" id="custom-underline">検索条件</label>
+					<label for="searchTerm" class="mr-2">分類</label>
+					
+					<select id="searchTerm" name="categoryId" class="form-control mr-2">
+						 <option value="">すべて</option>
+						 <option th:each="categoryInfo : ${categoryInfoList}" 
+						 	th:value="${categoryInfo.categoryId}" 
+						 	th:text="${categoryInfo.categoryName}"></option>
+					</select>
+					
+					
+					<label for="searchTerm" class="mr-2">名称</label>
+ 					<input type="text" id="searchTerm" name="name" class="form-control mr-2">
+ 					
+ 					
+<!-- 「以上」「以下」を定数にする -->
+					<label for="searchTerm" class="mr-2">個数</label>
+					<input type="text" id="searchTerm" name="amount" class="form-control mr-0">
+					<select id="searchTerm" name="range" class="form-control mr-2">
+						 <option th:each="rangeType : ${rangeType}" 
+						 	th:value="${rangeType.name}" 
+						 	th:text="${rangeType.type}"></option>
+					</select>
+					
+ 					<button type="submit" class="btn btn-primary">検索</button>
+ 				</form>
+ 				
+ 				<!-- エラーメッセージの表示 -->
+ 				<div th:if="${errorMsg != null}" class="text-danger">
+					 <p th:text="${errorMsg}"></p>
+				</div>
+			</div>
+			
+			<!-- 在庫一覧テーブル -->
+			<div class="table-responsive" id="custom-text-center">
+				<table class="table table-bordered" id="dataTable">
+					<thead>
+						<tr>
+							<th>分類</th>
+							<th>名称</th>
+							<th>個数</th>
+							<th>保管場所</th>
+							<th>説明</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="item : ${stockInfoList}">
+							<td> [[${item.categoryName}]] </td>
+							<td> [[${item.Name}]] </td>
+							<td> [[${item.amount}]] </td>
+							<td> [[${item.centerName}]] </td>
+							<td class=custom-text-left> [[${item.description}]] </td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+    </div>
+  </body>
+</html>

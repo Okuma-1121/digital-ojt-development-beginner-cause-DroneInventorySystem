@@ -62,6 +62,9 @@ public class ErrorMessage {
 	// 文字超過に関するエラーメッセージ（備考）
 	public static final String NOTES_LENGTH_ERROR_MESSAGE = "notes.length.wrongInput";
 
+	// センターIDに紐づくデータが空の場合のエラーメッセージ
+	public static final String NULL_CENTER_ID_MESSAGE = "null.centerId";
+
 	// DataAccessExceptionの場合のエラーメッセージ
 	public static final String DATA_ACCESS_ERROR_MESSAGE = "dataAccess.exception";
 

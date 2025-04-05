@@ -14,4 +14,10 @@ public class ResultMessage {
 	// 新規登録エラーのメッセージ
 	public static final String REGISTRATION_ERROR = "registration.error";
 
+	// 更新完了のメッセージ
+	public static final String UPDATE_COMPLETED = "update.completed";
+
+	// 更新エラーのメッセージ
+	public static final String UPDATE_ERROR = "update.error";
+
 }

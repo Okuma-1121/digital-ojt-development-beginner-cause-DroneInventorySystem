@@ -45,6 +45,12 @@ public class UrlConsts {
 	// 在庫センター情報画面 登録完了
 	public static final String CENTER_INFO_REGISTRATION_COMPLETED = "/admin/centerInfo/registrationCompleted";
 
+	// 在庫センター情報画面 更新/削除画面　表示
+	public static final String CENTER_INFO_DETAILS = "/admin/centerInfo/details/{centerId}";
+
+	// 在庫センター情報画面 更新/削除画面
+	public static final String CENTER_INFO_UPDATE = "/admin/centerInfo/update";
+
 	// 認証不要画面
 	public static final String[] NO_AUTHENTICATION = { LOGIN, AUTHENTICATE };
 

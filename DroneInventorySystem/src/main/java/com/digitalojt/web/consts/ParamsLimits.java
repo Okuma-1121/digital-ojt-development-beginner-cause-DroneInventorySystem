@@ -48,6 +48,9 @@ public class ParamsLimits {
 	//備考の最大文字数
 	public static final int NOTES_MAX_LENGTH = 100;
 
+	//センターIDの数値
+	public static final String CENTER_ID_NUMERIC = "/^[0-9]+$/";
+
 	// 郵便番号のフォーマット
 	public static final String POST_CODE_FORMAT = "^[0-9]{3}-[0-9]{4}$";
 

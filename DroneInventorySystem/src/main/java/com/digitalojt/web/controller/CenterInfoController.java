@@ -19,10 +19,10 @@ import com.digitalojt.web.consts.ResultMessage;
 import com.digitalojt.web.consts.UrlConsts;
 import com.digitalojt.web.entity.CenterInfo;
 import com.digitalojt.web.form.CenterInfoForm;
-import com.digitalojt.web.form.DeleteCenterInfoForm;
 import com.digitalojt.web.form.RegisterCenterInfoForm;
 import com.digitalojt.web.form.UpdateCenterInfoForm;
 import com.digitalojt.web.service.CenterInfoService;
+import com.digitalojt.web.service.StockInfoService;
 import com.digitalojt.web.util.MessageManager;
 
 import jakarta.validation.Valid;
@@ -40,6 +40,9 @@ public class CenterInfoController {
 
 	/** センター情報 サービス */
 	private final CenterInfoService centerInfoService;
+
+	/** センター情報テーブル サービス */
+	private final StockInfoService stockInfoService;
 
 	/** メッセージソース */
 	private final MessageSource messageSource;
@@ -251,7 +254,7 @@ public class CenterInfoController {
 	 * @return
 	 */
 	@GetMapping(UrlConsts.CENTER_INFO_DELETE_CONFIRM)
-	public String delete(@PathVariable int centerId, Model model, RedirectAttributes redirectAttributes) {
+	public String deleteConfirm(@PathVariable int centerId, Model model, RedirectAttributes redirectAttributes) {
 
 		// 削除確認画面に表示するデータを取得
 		List<CenterInfo> centerInfoList = centerInfoService.getCenterInfoData(centerId);
@@ -280,27 +283,40 @@ public class CenterInfoController {
 	 * @param redirectAttributes
 	 * @return
 	 */
-	@PostMapping(UrlConsts.CENTER_INFO_DELETE)
-	public String delete(@Valid DeleteCenterInfoForm form, BindingResult bindingResult,
-			RedirectAttributes redirectAttributes) {
+	@PostMapping(UrlConsts.CENTER_INFO_DELETE_CONFIRM)
+	public String delete(@PathVariable int centerId, Model model, RedirectAttributes redirectAttributes) {
 
-		// Valid項目チェック
-		if (bindingResult.hasErrors()) {
+		//センターIDに紐づく在庫センター情報を取得
+		List<CenterInfo> centerInfoList = centerInfoService.getCenterInfoData(centerId);
+		if (!centerInfoList.isEmpty()) {
 
-			// エラーメッセージをプロパティファイルから取得しフラッシュ属性として設定	
-			String errorMsg = MessageManager.getMessage(messageSource,
-					bindingResult.getGlobalError().getDefaultMessage());
-			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
+			//在庫一覧情報に紐付けがあるかチェック
+			if (!stockInfoService.getStockInfoData(centerInfoList.get(0).getCenterId()).isEmpty()) {
 
-			return "redirect:/admin/centerInfo/delete/" + form.getCenterId();
-		}
+				// エラーメッセージをプロパティファイルから取得しフラッシュ属性として設定	
+				String errorMsg = messageSource.getMessage(ErrorMessage.LINKED_CENTER_ID, null,
+						Locale.getDefault());
+				redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
 
-		// 在庫センター情報を削除（論理削除）
-		try {
-			centerInfoService.deleteCenterInfo(form);
-		} catch (Exception e) {
-			// エラーメッセージをフラッシュ属性として設定
-			String errorMsg = messageSource.getMessage(ResultMessage.UPDATE_ERROR, null,
+				return "redirect:/admin/centerInfo/delete/" + centerId;
+			}
+
+			try {
+				// 在庫センター情報を削除（論理削除）
+				centerInfoService.deleteCenterInfo(centerInfoList);
+
+			} catch (Exception e) {
+				// エラーメッセージをフラッシュ属性として設定
+				String errorMsg = messageSource.getMessage(ResultMessage.UPDATE_ERROR, null,
+						Locale.getDefault());
+				redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
+
+				// 初期表示にリダイレクト
+				return "redirect:" + UrlConsts.CENTER_INFO;
+			}
+		} else {
+			// エラーメッセージをプロパティファイルから取得
+			String errorMsg = messageSource.getMessage(ErrorMessage.NULL_CENTER_ID_MESSAGE, null,
 					Locale.getDefault());
 			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
 

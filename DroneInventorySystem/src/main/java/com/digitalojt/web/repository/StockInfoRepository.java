@@ -34,7 +34,6 @@ public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 	 * @param range  以上か以下
 	 * @return paramで検索した結果
 	 */
-
 	@Query("SELECT s FROM StockInfo s WHERE " +
 			"(:categoryId IS NULL OR s.categoryInfo.categoryId = :categoryId) AND " +
 			"(:name = '' OR s.name LIKE %:name%) AND " +
@@ -53,7 +52,6 @@ public interface StockInfoRepository extends JpaRepository<StockInfo, Integer> {
 	 * @param centerId
 	 * @return paramで検索した結果
 	 */
-
 	@Query("SELECT s FROM StockInfo s WHERE s.centerInfo.centerId = :centerId")
 	List<StockInfo> findByCenterId(Integer centerId);
 

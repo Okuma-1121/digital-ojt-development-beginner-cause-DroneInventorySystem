@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.digitalojt.web.consts.DeleteFlag;
 import com.digitalojt.web.entity.CenterInfo;
-import com.digitalojt.web.form.DeleteCenterInfoForm;
 import com.digitalojt.web.form.RegisterCenterInfoForm;
 import com.digitalojt.web.form.UpdateCenterInfoForm;
 import com.digitalojt.web.repository.CenterInfoRepository;
@@ -107,23 +107,14 @@ public class CenterInfoService {
 	/**
 	 * センターIDに合致する在庫センター情報を削除(論理削除)
 	 * 
-	 * @param form
+	 * @param centerInfoList
 	 */
 	@Transactional(rollbackForClassName = { "Exception" })
-	public void deleteCenterInfo(DeleteCenterInfoForm form) {
-		// 在庫センター情報を更新するためのCenterInfoオブジェクトを作成
-		CenterInfo centerInfo = new CenterInfo();
-		centerInfo.setCenterId(form.getCenterId());
-		centerInfo.setDeleteFlag("1");//論理削除＝１
-		centerInfo.setCenterName(form.getCenterName());
-		centerInfo.setPostCode(form.getPostCode());
-		centerInfo.setAddress(form.getAddress());
-		centerInfo.setPhoneNumber(form.getPhoneNumber());
-		centerInfo.setManagerName(form.getManagerName());
-		centerInfo.setOperationalStatus(form.getOperationalStatus());
-		centerInfo.setMaxStorageCapacity(form.getMaxStorageCapacity());
-		centerInfo.setCurrentStorageCapacity(form.getCurrentStorageCapacity());
-		centerInfo.setNotes(form.getNotes());
+	public void deleteCenterInfo(List<CenterInfo> centerInfoList) {
+		//単一の情報を格納
+		CenterInfo centerInfo = centerInfoList.get(0);
+		//「/削除フラグ：削除」を設定
+		centerInfo.setDeleteFlag(DeleteFlag.DELETE.getType());
 
 		repository.save(centerInfo);
 	}

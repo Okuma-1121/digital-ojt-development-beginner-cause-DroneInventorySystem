@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.digitalojt.web.consts.ActionName;
 import com.digitalojt.web.consts.ErrorMessage;
 import com.digitalojt.web.consts.Region;
 import com.digitalojt.web.consts.ResultMessage;
@@ -36,7 +37,7 @@ import lombok.RequiredArgsConstructor;
  */
 @Controller
 @RequiredArgsConstructor
-public class CenterInfoController {
+public class CenterInfoController extends AbstractController {
 
 	/** センター情報 サービス */
 	private final CenterInfoService centerInfoService;
@@ -56,6 +57,9 @@ public class CenterInfoController {
 	@GetMapping(UrlConsts.CENTER_INFO)
 	public String index(Model model) {
 
+		// 開始ログを設定
+		logStart(ActionName.CENTER_INFO_GET);
+
 		// 在庫センター情報画面に表示するデータを取得
 		List<CenterInfo> centerInfoList = centerInfoService.getCenterInfoData();
 
@@ -67,6 +71,9 @@ public class CenterInfoController {
 
 		// 都道府県プルダウン情報をセット
 		model.addAttribute("regions", regions);
+
+		// 終了ログを設定
+		logEnd(ActionName.CENTER_INFO_GET);
 
 		return UrlConsts.CENTER_INFO_INDEX;
 	}
@@ -82,6 +89,9 @@ public class CenterInfoController {
 	@PostMapping(UrlConsts.CENTER_INFO_SEARCH)
 	public String search(Model model, @Valid CenterInfoForm form, BindingResult bindingResult) {
 
+		// 開始ログを設定
+		logStart(ActionName.CENTER_INFO_POST);
+
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 
@@ -95,6 +105,9 @@ public class CenterInfoController {
 
 			// 都道府県プルダウン情報をセット
 			model.addAttribute("regions", regions);
+
+			// エラーログを設定
+			logValidationError(ActionName.CENTER_INFO_POST, errorMsg);
 
 			return UrlConsts.CENTER_INFO_INDEX;
 		}
@@ -111,6 +124,9 @@ public class CenterInfoController {
 		// 都道府県プルダウン情報をセット
 		model.addAttribute("regions", regions);
 
+		// 終了ログを設定
+		logEnd(ActionName.CENTER_INFO_POST);
+
 		return UrlConsts.CENTER_INFO_INDEX;
 	}
 
@@ -122,6 +138,12 @@ public class CenterInfoController {
 	 */
 	@GetMapping(UrlConsts.CENTER_INFO_REGISTER)
 	public String register(Model model) {
+
+		// 開始ログを設定
+		logStart(ActionName.CENTER_INFO_GET);
+
+		// 終了ログを設定
+		logEnd(ActionName.CENTER_INFO_GET);
 
 		return UrlConsts.CENTER_INFO_REGISTER;
 	}
@@ -137,6 +159,10 @@ public class CenterInfoController {
 	@PostMapping(UrlConsts.CENTER_INFO_REGISTRATION_COMPLETED)
 	public String register(@Valid RegisterCenterInfoForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
+
+		// 開始ログを設定
+		logStart(ActionName.CENTER_INFO_POST);
+
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 
@@ -144,6 +170,9 @@ public class CenterInfoController {
 			String errorMsg = MessageManager.getMessage(messageSource,
 					bindingResult.getGlobalError().getDefaultMessage());
 			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
+
+			// エラーログを設定
+			logValidationError(ActionName.CENTER_INFO_POST, errorMsg);
 
 			return "redirect:" + UrlConsts.CENTER_INFO_REGISTER;
 		}
@@ -157,6 +186,9 @@ public class CenterInfoController {
 					Locale.getDefault());
 			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
 
+			// エラーログを設定
+			logError(ActionName.CENTER_INFO_POST, e);
+
 			// 初期表示にリダイレクト
 			return "redirect:" + UrlConsts.CENTER_INFO;
 		}
@@ -165,6 +197,9 @@ public class CenterInfoController {
 		String completedMsg = messageSource.getMessage(ResultMessage.REGISTRATION_COMPLETED, null,
 				Locale.getDefault());
 		redirectAttributes.addFlashAttribute("completedMsg", completedMsg);
+
+		// 終了ログを設定
+		logEnd(ActionName.CENTER_INFO_POST);
 
 		// 初期表示にリダイレクト
 		return "redirect:" + UrlConsts.CENTER_INFO;
@@ -181,6 +216,9 @@ public class CenterInfoController {
 	@GetMapping(UrlConsts.CENTER_INFO_DETAILS)
 	public String details(@PathVariable int centerId, Model model, RedirectAttributes redirectAttributes) {
 
+		// 開始ログを設定
+		logStart(ActionName.CENTER_INFO_GET);
+
 		// 在庫センター情報詳細（更新/削除）画面に表示するデータを取得
 		List<CenterInfo> centerInfoList = centerInfoService.getCenterInfoData(centerId);
 
@@ -188,12 +226,18 @@ public class CenterInfoController {
 			// 在庫センター情報詳細をセット
 			model.addAttribute("centerInfoList", centerInfoList);
 
+			// 終了ログを設定
+			logEnd(ActionName.CENTER_INFO_GET);
+
 			return UrlConsts.CENTER_INFO_UPDATE;
 		} else {
 			// エラーメッセージをプロパティファイルから取得
 			String errorMsg = messageSource.getMessage(ErrorMessage.NULL_CENTER_ID_MESSAGE, null,
 					Locale.getDefault());
 			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
+
+			// エラーログを設定
+			logValidationError(ActionName.CENTER_INFO_GET, errorMsg);
 
 			// 初期表示にリダイレクト
 			return "redirect:" + UrlConsts.CENTER_INFO;
@@ -212,6 +256,9 @@ public class CenterInfoController {
 	public String update(@Valid UpdateCenterInfoForm form, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) {
 
+		// 開始ログを設定
+		logStart(ActionName.CENTER_INFO_POST);
+
 		// Valid項目チェック
 		if (bindingResult.hasErrors()) {
 
@@ -219,6 +266,9 @@ public class CenterInfoController {
 			String errorMsg = MessageManager.getMessage(messageSource,
 					bindingResult.getGlobalError().getDefaultMessage());
 			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
+
+			// エラーログを設定
+			logValidationError(ActionName.CENTER_INFO_POST, errorMsg);
 
 			return "redirect:/admin/centerInfo/details/" + form.getCenterId();
 		}
@@ -232,6 +282,9 @@ public class CenterInfoController {
 					Locale.getDefault());
 			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
 
+			//エラーログを設定
+			logError(ActionName.CENTER_INFO_POST, e);
+
 			// 初期表示にリダイレクト
 			return "redirect:" + UrlConsts.CENTER_INFO;
 		}
@@ -240,6 +293,9 @@ public class CenterInfoController {
 		String completedMsg = messageSource.getMessage(ResultMessage.UPDATE_COMPLETED, null,
 				Locale.getDefault());
 		redirectAttributes.addFlashAttribute("completedMsg", completedMsg);
+
+		// 終了ログを設定
+		logEnd(ActionName.CENTER_INFO_POST);
 
 		// 初期表示にリダイレクト
 		return "redirect:" + UrlConsts.CENTER_INFO;
@@ -256,6 +312,9 @@ public class CenterInfoController {
 	@GetMapping(UrlConsts.CENTER_INFO_DELETE_CONFIRM)
 	public String deleteConfirm(@PathVariable int centerId, Model model, RedirectAttributes redirectAttributes) {
 
+		// 開始ログを設定
+		logStart(ActionName.CENTER_INFO_GET);
+
 		// 削除確認画面に表示するデータを取得
 		List<CenterInfo> centerInfoList = centerInfoService.getCenterInfoData(centerId);
 
@@ -263,12 +322,18 @@ public class CenterInfoController {
 			// 在庫センター情報詳細をセット
 			model.addAttribute("centerInfoList", centerInfoList);
 
+			// 終了ログを設定
+			logEnd(ActionName.CENTER_INFO_GET);
+
 			return UrlConsts.CENTER_INFO_DELETE;
 		} else {
 			// エラーメッセージをプロパティファイルから取得
 			String errorMsg = messageSource.getMessage(ErrorMessage.NULL_CENTER_ID_MESSAGE, null,
 					Locale.getDefault());
 			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
+
+			// エラーログを設定
+			logValidationError(ActionName.CENTER_INFO_GET, errorMsg);
 
 			// 初期表示にリダイレクト
 			return "redirect:" + UrlConsts.CENTER_INFO;
@@ -286,6 +351,9 @@ public class CenterInfoController {
 	@PostMapping(UrlConsts.CENTER_INFO_DELETE_CONFIRM)
 	public String delete(@PathVariable int centerId, Model model, RedirectAttributes redirectAttributes) {
 
+		// 開始ログを設定
+		logStart(ActionName.CENTER_INFO_POST);
+
 		//センターIDに紐づく在庫センター情報を取得
 		List<CenterInfo> centerInfoList = centerInfoService.getCenterInfoData(centerId);
 		if (!centerInfoList.isEmpty()) {
@@ -297,6 +365,9 @@ public class CenterInfoController {
 				String errorMsg = messageSource.getMessage(ErrorMessage.LINKED_CENTER_ID, null,
 						Locale.getDefault());
 				redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
+
+				// エラーログを設定
+				logValidationError(ActionName.CENTER_INFO_POST, errorMsg);
 
 				return "redirect:/admin/centerInfo/delete/" + centerId;
 			}
@@ -311,6 +382,9 @@ public class CenterInfoController {
 						Locale.getDefault());
 				redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
 
+				//エラーログを設定
+				logError(ActionName.CENTER_INFO_POST, e);
+
 				// 初期表示にリダイレクト
 				return "redirect:" + UrlConsts.CENTER_INFO;
 			}
@@ -320,6 +394,9 @@ public class CenterInfoController {
 					Locale.getDefault());
 			redirectAttributes.addFlashAttribute("errorMsg", errorMsg);
 
+			// エラーログを設定
+			logValidationError(ActionName.CENTER_INFO_POST, errorMsg);
+
 			// 初期表示にリダイレクト
 			return "redirect:" + UrlConsts.CENTER_INFO;
 		}
@@ -328,6 +405,9 @@ public class CenterInfoController {
 		String completedMsg = messageSource.getMessage(ResultMessage.UPDATE_COMPLETED, null,
 				Locale.getDefault());
 		redirectAttributes.addFlashAttribute("completedMsg", completedMsg);
+
+		// 終了ログを設定
+		logEnd(ActionName.CENTER_INFO_POST);
 
 		// 初期表示にリダイレクト
 		return "redirect:" + UrlConsts.CENTER_INFO;

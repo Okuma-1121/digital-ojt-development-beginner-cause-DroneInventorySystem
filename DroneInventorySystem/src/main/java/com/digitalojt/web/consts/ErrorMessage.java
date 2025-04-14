@@ -62,6 +62,9 @@ public class ErrorMessage {
 	// 文字超過に関するエラーメッセージ（備考）
 	public static final String NOTES_LENGTH_ERROR_MESSAGE = "notes.length.wrongInput";
 
+	// 在庫情報に紐づくセンター情報を削除使用とした場合のエラーメッセージ
+	public static final String LINKED_CENTER_ID = "linked.centerId";
+
 	// センターIDに紐づくデータが空の場合のエラーメッセージ
 	public static final String NULL_CENTER_ID_MESSAGE = "null.centerId";
 

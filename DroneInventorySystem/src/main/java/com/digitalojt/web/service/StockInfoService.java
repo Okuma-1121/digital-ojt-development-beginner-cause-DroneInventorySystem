@@ -44,4 +44,15 @@ public class StockInfoService {
 	public List<StockInfo> getStockInfoData(Integer categoryId, String name, Integer amount, String range) {
 		return repository.findByCategoryInfoCategoryIdAndNameAndAmount(categoryId, name, amount, range);
 	}
+
+	/**
+	 * 引数に合致する在庫情報を取得
+	 * 
+	 * @param centerId
+	 * @return 
+	 * 
+	 */
+	public List<StockInfo> getStockInfoData(Integer centerId) {
+		return repository.findByCenterId(centerId);
+	}
 }

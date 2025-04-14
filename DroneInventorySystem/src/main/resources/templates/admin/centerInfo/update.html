@@ -134,7 +134,9 @@
 						<div class="d-flex justify-content-between">
 							<a href="/admin/centerInfo" class="btn btn-secondary btn-sm">キャンセル</a>
 							<div>
-								<a href="/admin/centerInfo" class="btn btn-primary btn-sm">削除する</a>
+								<a
+									th:href="@{/admin/centerInfo/delete/{centerId}(centerId=${center.centerId})}"
+									class="btn btn-primary btn-sm">削除する</a>
 								<button type="submit" class="btn btn-success btn-sm">
 									更新する</button>
 							</div>

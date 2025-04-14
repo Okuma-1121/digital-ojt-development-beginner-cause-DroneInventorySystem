@@ -51,6 +51,12 @@ public class UrlConsts {
 	// 在庫センター情報画面 更新/削除画面
 	public static final String CENTER_INFO_UPDATE = "/admin/centerInfo/update";
 
+	// 在庫センター情報画面 削除確認画面　表示
+	public static final String CENTER_INFO_DELETE_CONFIRM = "/admin/centerInfo/delete/{centerId}";
+
+	// 在庫センター情報画面 削除確認画面
+	public static final String CENTER_INFO_DELETE = "/admin/centerInfo/delete";
+
 	// 認証不要画面
 	public static final String[] NO_AUTHENTICATION = { LOGIN, AUTHENTICATE };
 

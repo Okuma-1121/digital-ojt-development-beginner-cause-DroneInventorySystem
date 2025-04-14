@@ -38,6 +38,5 @@ public interface CenterInfoRepository extends JpaRepository<CenterInfo, Integer>
 	 * @param centerId
 	 * @return paramで検索した結果
 	 */
-
 	List<CenterInfo> findByCenterId(int centerId);
 }
